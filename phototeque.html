@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photothèque — La Ferme du Petit Bois Joli</title>
+  <meta name="description" content="Galerie photos de la Ferme du Petit Bois Joli.">
+  <link rel="icon" type="image/jpeg" href="assets/logo/logo.jpg">
+  <link rel="stylesheet" href="style/main.css">
+  <style>
+    /* ── Grille carrée ── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .photo-thumb {
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: zoom-in;
+      position: relative;
+      background: var(--bg-section);
+      box-shadow: 0 3px 12px var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .photo-thumb:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 28px var(--shadow-strong);
+      z-index: 1;
+    }
+    .photo-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+    .photo-thumb img.loaded { opacity: 1; }
+
+    .photo-thumb .zoom-icon {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      background: rgba(61,43,31,0);
+      transition: background 0.2s;
+      opacity: 0;
+    }
+    .photo-thumb:hover .zoom-icon {
+      background: rgba(61,43,31,0.35);
+      opacity: 1;
+    }
+
+    /* ── État chargement / vide ── */
+    .gallery-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-light);
+    }
+    .gallery-state .state-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .gallery-state h3 { color: var(--brown-medium); margin-bottom: 0.5rem; }
+    .spinner {
+      width: 42px; height: 42px;
+      border: 4px solid var(--bg-section);
+      border-top-color: var(--green-medium);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Lightbox / Carrousel ── */
+    #lb {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(10, 6, 3, 0.93);
+      backdrop-filter: blur(10px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    #lb.open { display: flex; }
+
+    .lb-inner {
+      position: relative;
+      max-width: 960px;
+      width: 100%;
+      animation: lb-pop 0.2s ease;
+    }
+    @keyframes lb-pop {
+      from { opacity: 0; transform: scale(0.94); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .lb-img-wrap {
+      border-radius: 14px;
+      overflow: hidden;
+      background: #111;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-height: 78vh;
+    }
+    #lb-img {
+      max-width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      display: block;
+      transition: opacity 0.15s;
+    }
+    #lb-img.fading { opacity: 0; }
+
+    /* Close */
+    #lb-close {
+      position: fixed;
+      top: 1.2rem; right: 1.2rem;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--brown-dark);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.55);
+      z-index: 9999;
+      transition: transform 0.15s;
+    }
+    #lb-close:hover { transform: scale(1.12) rotate(90deg); }
+
+    /* Flèches */
+    .lb-arrow {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.13);
+      border: 2px solid rgba(255,255,255,0.28);
+      color: white;
+      border-radius: 50%;
+      width: 50px; height: 50px;
+      font-size: 1.15rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.18s, transform 0.15s;
+      z-index: 10;
+    }
+    .lb-arrow:hover {
+      background: rgba(255,255,255,0.27);
+      transform: translateY(-50%) scale(1.08);
+    }
+    #lb-prev { left: -62px; }
+    #lb-next { right: -62px; }
+
+    /* Compteur + bande de miniatures */
+    .lb-footer {
+      margin-top: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.7rem;
+      width: 100%;
+    }
+    #lb-counter {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+    }
+    .lb-thumbs {
+      display: flex;
+      gap: 0.35rem;
+      overflow-x: auto;
+      max-width: 100%;
+      padding: 0.2rem 0.5rem;
+      scrollbar-width: none;
+    }
+    .lb-thumbs::-webkit-scrollbar { display: none; }
+    .lb-thumb {
+      flex-shrink: 0;
+      width: 48px; height: 48px;
+      border-radius: 6px;
+      object-fit: cover;
+      opacity: 0.45;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: opacity 0.2s, border-color 0.2s;
+    }
+    .lb-thumb.active {
+      opacity: 1;
+      border-color: white;
+    }
+
+    @media (max-width: 640px) {
+      .photo-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.5rem; }
+      #lb-prev { left: 0.3rem; background: rgba(0,0,0,0.45); }
+      #lb-next { right: 0.3rem; background: rgba(0,0,0,0.45); }
+      .lb-thumbs { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<div class="page-hero">
+  <h1>📷 Photothèque</h1>
+  <p class="subtitle-page">Les plus beaux moments de la ferme</p>
+</div>
+
+<section>
+  <div class="section-inner">
+    <p id="gallery-count" class="text-center" style="color:var(--text-light);font-size:0.9rem;margin-bottom:1.5rem;"></p>
+    <div class="photo-grid" id="photo-grid">
+      <div class="gallery-state">
+        <div class="spinner"></div>
+        <p>Chargement des photos…</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Carrousel lightbox -->
+<div id="lb" role="dialog" aria-modal="true">
+  <div class="lb-inner">
+    <div class="lb-img-wrap">
+      <img id="lb-img" src="" alt="">
+    </div>
+    <button id="lb-prev" class="lb-arrow" aria-label="Précédent">◀</button>
+    <button id="lb-next" class="lb-arrow" aria-label="Suivant">▶</button>
+    <div class="lb-footer">
+      <div id="lb-counter"></div>
+      <div class="lb-thumbs" id="lb-thumbs"></div>
+    </div>
+  </div>
+  <button id="lb-close" aria-label="Fermer">✕</button>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="js/main.js"></script>
+<script>
+(async () => {
+  const FOLDER   = 'assets/phototeque/';
+  const IMG_EXTS = /\.(jpe?g|png|webp|gif)$/i;
+  const grid     = document.getElementById('photo-grid');
+  const countEl  = document.getElementById('gallery-count');
+
+  // ── 1. Récupérer la liste des fichiers via le listing du serveur ──
+  let photos = [];
+  try {
+    const res  = await fetch(FOLDER);
+    const html = await res.text();
+    const doc  = new DOMParser().parseFromString(html, 'text/html');
+    photos = [...doc.querySelectorAll('a[href]')]
+      .map(a => a.getAttribute('href'))
+      .filter(href => IMG_EXTS.test(href))
+      .map(href => FOLDER + href.split('/').pop());
+  } catch(e) {
+    photos = [];
+  }
+
+  // ── 2. Affichage ──
+  grid.innerHTML = '';
+
+  if (photos.length === 0) {
+    grid.innerHTML = `
+      <div class="gallery-state">
+        <div class="state-icon">📷</div>
+        <h3>Aucune photo trouvée</h3>
+      </div>`;
+    return;
+  }
+
+  countEl.textContent = `${photos.length} photo${photos.length > 1 ? 's' : ''}`;
+
+  photos.forEach((src, idx) => {
+    const thumb = document.createElement('div');
+    thumb.className = 'photo-thumb';
+    thumb.innerHTML = `<img src="${src}" alt="Photo ${idx+1}" loading="lazy">
+                       <div class="zoom-icon">🔍</div>`;
+    const img = thumb.querySelector('img');
+    img.addEventListener('load', () => img.classList.add('loaded'));
+    thumb.addEventListener('click', () => openLb(idx));
+    grid.appendChild(thumb);
+  });
+
+  // ── 3. Carrousel lightbox ──
+  const lb      = document.getElementById('lb');
+  const lbImg   = document.getElementById('lb-img');
+  const lbCount = document.getElementById('lb-counter');
+  const lbThumbs= document.getElementById('lb-thumbs');
+  const lbPrev  = document.getElementById('lb-prev');
+  const lbNext  = document.getElementById('lb-next');
+  const lbClose = document.getElementById('lb-close');
+  let cur = 0;
+
+  // Pré-construire les miniatures
+  photos.forEach((src, i) => {
+    const t = document.createElement('img');
+    t.src = src;
+    t.className = 'lb-thumb';
+    t.alt = '';
+    t.addEventListener('click', () => goTo(i));
+    lbThumbs.appendChild(t);
+  });
+
+  const goTo = (n) => {
+    cur = (n + photos.length) % photos.length;
+    lbImg.classList.add('fading');
+    setTimeout(() => {
+      lbImg.src = photos[cur];
+      lbImg.classList.remove('fading');
+    }, 130);
+    lbCount.textContent = `${cur + 1} / ${photos.length}`;
+    // sync miniatures
+    lbThumbs.querySelectorAll('.lb-thumb').forEach((t, i) => {
+      t.classList.toggle('active', i === cur);
+    });
+    // scroll mini active
+    const activeMini = lbThumbs.children[cur];
+    if (activeMini) activeMini.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+  };
+
+  const openLb = (idx) => {
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lbImg.src = '';
+    goTo(idx);
+  };
+  const closeLb = () => {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  };
+
+  lbClose.addEventListener('click', closeLb);
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+  lbPrev.addEventListener('click', () => goTo(cur - 1));
+  lbNext.addEventListener('click', () => goTo(cur + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLb();
+    if (e.key === 'ArrowLeft')  goTo(cur - 1);
+    if (e.key === 'ArrowRight') goTo(cur + 1);
+  });
+
+  // Swipe
+  let tx = 0;
+  lb.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 45) goTo(dx < 0 ? cur + 1 : cur - 1);
+  });
+})();
+</script>
+</body>
+</html>

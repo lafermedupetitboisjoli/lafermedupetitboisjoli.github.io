@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nos Bénévoles — La Ferme du Petit Bois Joli</title>
+    <link rel="icon" type="image/jpeg" href="assets/logo/logo.jpg">
+  <meta name="description" content="Découvrez les bénévoles passionnés qui font vivre la Ferme du Petit Bois Joli au quotidien.">
+  <link rel="stylesheet" href="style/main.css">
+  <style>
+    .benevole-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 20px var(--shadow);
+      transition: transform 0.25s, box-shadow 0.25s;
+      border: 1px solid rgba(184,146,106,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .benevole-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 40px var(--shadow-strong);
+    }
+    .benevole-card.rejoindre {
+      border: 2px dashed var(--green-medium);
+      background: linear-gradient(135deg, #FAF6EE, #EDE5D0);
+    }
+    .benevole-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--green-medium), var(--orange-warm));
+    }
+    .benevole-card.rejoindre::before {
+      background: linear-gradient(90deg, var(--pink-accent), var(--yellow-soft));
+    }
+    .benevole-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--bg-light), var(--bg-section));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      margin: 0.5rem auto 1.25rem;
+      border: 3px solid var(--brown-light);
+      box-shadow: 0 4px 15px var(--shadow);
+    }
+    .benevole-prenom {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--brown-dark);
+      margin-bottom: 0.25rem;
+    }
+    .benevole-role {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1rem;
+    }
+    .benevole-desc {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+    .competences {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+    .competence-tag {
+      background: var(--bg-section);
+      color: var(--brown-medium);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: 10px;
+    }
+
+    /* ── Carte mini (bénévole simple) ── */
+    .benevole-mini {
+      background: white;
+      border-radius: 16px;
+      padding: 1.25rem 1rem;
+      text-align: center;
+      box-shadow: 0 3px 12px var(--shadow);
+      border: 1px solid rgba(184,146,106,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .benevole-mini:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px var(--shadow-strong);
+    }
+    .benevole-mini .benevole-avatar {
+      width: 72px;
+      height: 72px;
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    .benevole-mini .benevole-prenom {
+      font-size: 1.3rem;
+      margin-bottom: 0;
+    }
+
+    /* Grilles séparées */
+    .grid-responsables {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.75rem;
+      margin-bottom: 3rem;
+    }
+    .grid-benevoles {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<!-- ══ PAGE HERO ══ -->
+<div class="page-hero">
+  <h1>🤝 Nos Bénévoles</h1>
+  <p class="subtitle-page" id="subtitle-page"></p>
+</div>
+
+<!-- ══ INTRO ══ -->
+<section>
+  <div class="section-inner">
+    <div class="highlight-box fade-up" style="max-width:780px;margin:0 auto;text-align:center;">
+      <p id="intro-texte" style="font-size:1.1rem;line-height:1.9;"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BÉNÉVOLES ══ -->
+<section class="bg-wood">
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">🌻</span>
+        <div class="line"></div>
+      </div>
+      <h2>Notre équipe</h2>
+      <p>Des passionné·e·s engagé·e·s pour le bien-être de tous</p>
+    </div>
+
+    <!-- Responsables : cartes complètes -->
+    <div class="grid-responsables" id="grid-responsables"></div>
+
+    <!-- Bénévoles : cartes mini -->
+    <div class="section-title fade-up" id="mini-title" style="margin-top:2rem;display:none;">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">🤝</span>
+        <div class="line"></div>
+      </div>
+      <h3 style="font-size:1.6rem;">Nos bénévoles</h3>
+    </div>
+    <div class="grid-benevoles" id="grid-benevoles"></div>
+
+  </div>
+</section>
+
+<!-- ══ REJOINDRE ══ -->
+<section>
+  <div class="section-inner">
+    <div class="info-banner fade-up" style="max-width:700px;margin:0 auto;">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">🌻</div>
+      <h2 id="rejoindre-titre"></h2>
+      <p id="rejoindre-texte" style="margin:1rem 0 1.5rem;"></p>
+      <a href="rejoindre.html" class="btn" style="background:white;color:var(--green-dark);">🌻 Rejoindre l'équipe</a>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="data/benevoles.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const d = benevolesData;
+
+
+  const avatar = (b) => b.photo
+    ? `<div class="benevole-avatar" style="padding:0;overflow:hidden;"><img src="assets/photos/${b.photo}" alt="${b.prenom}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>`
+    : `<div class="benevole-avatar">${b.icone}</div>`;
+  const gridResp  = document.getElementById('grid-responsables');
+  const gridMini  = document.getElementById('grid-benevoles');
+  const miniTitle = document.getElementById('mini-title');
+
+  let hasMini = false;
+
+  d.benevoles.forEach(b => {
+    if (b.isResponsable) {
+      const comps = (b.competences || []).map(c =>
+        `<span class="competence-tag">${c}</span>`
+      ).join('');
+      const rejoindreClass = b.rejoindre ? 'rejoindre' : '';
+      const btnHtml = b.rejoindre
+        ? `<div style="margin-top:1rem;"><a href="rejoindre.html" class="btn btn-primary" style="font-size:0.85rem;padding:0.5rem 1.2rem;">🌻 Rejoindre l'équipe</a></div>`
+        : '';
+      gridResp.innerHTML += `
+        <div class="benevole-card ${rejoindreClass} fade-up">
+          ${avatar(b)}
+          <div class="benevole-prenom">${b.prenom}</div>
+          ${b.role ? `<div class="benevole-role">${b.role}</div>` : ''}
+          ${b.description ? `<p class="benevole-desc">${b.description}</p>` : ''}
+          ${comps ? `<div class="competences">${comps}</div>` : ''}
+          ${btnHtml}
+        </div>`;
+    } else {
+      hasMini = true;
+      gridMini.innerHTML += `
+        <div class="benevole-mini fade-up">
+          ${avatar(b)}
+          <div class="benevole-prenom">${b.prenom}</div>
+        </div>`;
+    }
+  });
+
+  if (hasMini) miniTitle.style.display = 'block';
+
+  document.getElementById('subtitle-page').textContent = d.intro.sousTitre;
+  document.getElementById('intro-texte').textContent   = d.intro.texte;
+
+  document.getElementById('rejoindre-titre').textContent = d.rejoindre.titre;
+  document.getElementById('rejoindre-texte').textContent  = d.rejoindre.texte;
+
+  setTimeout(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
+  }, 100);
+});
+</script>
+</body>
+</html>

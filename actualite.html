@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actualités — La Ferme du Petit Bois Joli</title>
+    <link rel="icon" type="image/jpeg" href="assets/logo/logo.jpg">
+  <meta name="description" content="Actualités et événements de la Ferme du Petit Bois Joli : portes ouvertes, animations, vie de la ferme.">
+  <link rel="stylesheet" href="style/main.css">
+  <style>
+    .programme-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 720px) { 
+      .programme-grid { grid-template-columns: 1fr; }
+      #event-une { grid-template-columns: 1fr !important; }
+    }
+    .prog-day {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+    .prog-day-header {
+      padding: 1rem 1.5rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+    }
+    .prog-day-header.sam { background: var(--green-dark); }
+    .prog-day-header.dim { background: var(--brown-medium); }
+    .prog-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      border-bottom: 1px solid var(--bg-section);
+    }
+    .prog-item:last-child { border-bottom: none; }
+    .prog-heure {
+      font-weight: 700;
+      color: var(--green-dark);
+      font-size: 0.9rem;
+      min-width: 65px;
+      padding-top: 2px;
+    }
+    .prog-activite { font-size: 0.9rem; color: var(--text-medium); }
+    .event-highlight {
+      background: linear-gradient(135deg, #FAF6EE, #EDE5D0);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 6px 30px var(--shadow);
+      border: 2px solid var(--brown-light);
+    }
+    .event-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .event-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-medium);
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+  </style>
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<!-- ══ PAGE HERO ══ -->
+<div class="page-hero">
+  <h1>📰 Actualités</h1>
+  <p class="subtitle-page" id="subtitle-page"></p>
+</div>
+
+<!-- ══ ÉVÉNEMENT À LA UNE ══ -->
+<section>
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">⭐</span>
+        <div class="line"></div>
+      </div>
+      <h2>Événements à la une</h2>
+    </div>
+    <div id="event-une" style="display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;"></div>
+  </div>
+</section>
+
+<!-- ══ ARTICLES ══ -->
+<section>
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">📋</span>
+        <div class="line"></div>
+      </div>
+      <h2>Dernières nouvelles</h2>
+    </div>
+    <div class="cards-grid" id="articles-grid"></div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="data/actualite.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const d = actualiteData;
+  document.getElementById('subtitle-page').textContent = d.intro.sousTitre;
+
+  // Événement à la une
+  const buildDay = (label, cls, items) => {
+    const rows = items.map(i =>
+      `<div class="prog-item">
+        <span style="font-size:1.2rem;flex-shrink:0;">${i.icone}</span>
+        <span class="prog-heure">${i.heure}</span>
+        <span class="prog-activite">${i.activite}</span>
+      </div>`
+    ).join('');
+    return `
+      <div class="prog-day fade-up">
+        <div class="prog-day-header ${cls}">${label}</div>
+        ${rows}
+      </div>`;
+  };
+
+  const events = d.evenementALaUne;
+  const eventUneEl = document.getElementById('event-une');
+  
+  events.forEach((ev) => {
+    const hasProgram = !!ev.programme;
+    const programmeHtml = hasProgram 
+      ? `<h3 style="font-size:1.3rem;color:var(--brown-dark);margin:2rem 0 1rem;border-top:2px solid var(--bg-section);padding-top:1.5rem;">Programme detaille</h3><div class="programme-grid">${buildDay('Samedi', 'sam', ev.programme.samedi) + buildDay('Dimanche', 'dim', ev.programme.dimanche)}</div>`
+      : '';
+    
+    const highlightsHtml = ev.highlights.map(h => `
+      <div class="card" style="text-align:center;max-width:${hasProgram ? '200px' : '120px'};">
+        <div class="card-icon" style="font-size:2.2rem;padding:1.25rem;">${h.icone}</div>
+        <div class="card-body" style="padding:1rem;">
+          <h3 style="font-size:1.1rem;">${h.titre}</h3>
+          <p style="font-size:0.85rem;">${h.texte}</p>
+        </div>
+      </div>
+    `).join('');
+    
+    eventUneEl.innerHTML += `
+      <div class="event-highlight fade-up" ${hasProgram ? 'style="grid-column: 1 / -1;"' : ''}>
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
+          <span class="wood-panel">Entree: ${ev.entree}</span>
+        </div>
+        <h2 style="font-size:1.8rem;margin-bottom:0.5rem;color:var(--brown-dark);">${ev.titre}</h2>
+        <div class="event-meta">
+          <div class="event-meta-item">Date: ${ev.date}</div>
+          <div class="event-meta-item">Heure: ${ev.heures}</div>
+          <div class="event-meta-item">Lieu: ${ev.lieu}</div>
+        </div>
+        <p style="font-size:1.05rem;line-height:1.8;margin:1.5rem 0;">${ev.description}</p>
+        <div style="display:flex;gap:1rem;margin-bottom:1.5rem;overflow-x:auto;padding-bottom:0.5rem;">
+          ${highlightsHtml}
+        </div>
+        ${programmeHtml}
+        <a href="${ev.contact.lien}" target="_blank" class="btn btn-primary" style="display:inline-block;margin-top:${hasProgram ? '2' : '1'}rem;">${ev.contact.texte}</a>
+      </div>`;
+  });
+
+  // Articles
+  const articlesEl = document.getElementById('articles-grid');
+  d.articles.forEach(a => {
+    articlesEl.innerHTML += `
+      <div class="card fade-up">
+        <div class="card-icon">${a.icone}</div>
+        <div class="card-body">
+          <div class="news-date">${a.date}</div>
+          <h3>${a.titre}</h3>
+          <p>${a.texte}</p>
+          <span class="card-tag">${a.tag}</span>
+        </div>
+      </div>`;
+  });
+
+  setTimeout(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
+  }, 100);
+});
+</script>
+</body>
+</html>

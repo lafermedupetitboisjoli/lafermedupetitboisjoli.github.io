@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Ferme du Petit Bois Joli — Accueil</title>
+    <link rel="icon" type="image/jpeg" href="assets/logo/logo.jpg">
+  <meta name="description" content="La Ferme du Petit Bois Joli est une association autour du bien-être animal et humain en Vendée. Ferme pédagogique, activités nature et médiation animale.">
+  <link rel="stylesheet" href="style/main.css">
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg-decor">
+    <div class="grass"></div>
+  </div>
+  <div class="hero-content">
+    <img src="assets/logo/logo.jpg" alt="Logo La Ferme du Petit Bois Joli" class="hero-logo">
+    <h1 id="hero-title"></h1>
+    <p class="subtitle" id="hero-subtitle"></p>
+    <p id="hero-desc"></p>
+    <div class="hero-badges" id="hero-badges"></div>
+    <div class="gap-center">
+      <a id="hero-btn1" class="btn btn-primary" href="#">🌿 Découvrir la ferme</a>
+      <a id="hero-btn2" class="btn btn-secondary" href="#">🎯 Nos activités</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CHIFFRES ══ -->
+<section class="bg-alt">
+  <div class="section-inner">
+    <div class="cards-grid" id="chiffres-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+    </div>
+  </div>
+</section>
+
+<!-- ══ MISSION ══ -->
+<section>
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">🌱</span>
+        <div class="line"></div>
+      </div>
+      <h2 id="mission-titre"></h2>
+    </div>
+    <div class="highlight-box fade-up" style="max-width:780px;margin:0 auto;">
+      <p id="mission-texte" style="font-size:1.1rem;line-height:1.9;"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CARTES SERVICES ══ -->
+<section class="bg-wood">
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">🐾</span>
+        <div class="line"></div>
+      </div>
+      <h2>Ce que nous proposons</h2>
+      <p>Des expériences uniques pour petits et grands</p>
+    </div>
+    <div class="cards-grid" id="services-grid"></div>
+  </div>
+</section>
+
+<!-- ══ PHOTO BANNER ══ -->
+<section style="padding: 0; position: relative; overflow: hidden; height: 380px;">
+  <img src="assets\logo\logo_bannière.webp"
+       alt="Portes ouvertes de la ferme"
+       style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+  <div style="position:absolute;inset:0;background:rgba(61,43,31,0.5);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;padding:2rem;text-align:center;">
+    <h2 style="color:white;font-size:clamp(2rem,5vw,3rem);">Venez nous rendre visite !</h2>
+    <p style="color:rgba(255,255,255,0.9);font-size:1.1rem;max-width:500px;">Portes ouvertes, visites guidées, activités pour toute la famille en Vendée.</p>
+    <a href="actualite.html" class="btn btn-primary">📅 Voir le programme</a>
+  </div>
+</section>
+
+<!-- ══ LOCALISATION ══ -->
+<section>
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">📍</span>
+        <div class="line"></div>
+      </div>
+      <h2>Où nous trouver ?</h2>
+    </div>
+    <div class="location-card fade-up">
+      <div class="location-info" style="text-align:center;align-items:center;">
+        <h3>La Ferme du Petit Bois Joli</h3>
+        <div class="location-detail">
+          <span class="icon">📍</span>
+          <div>
+            <strong>2 La Brouardière</strong><br>
+            85170 Beaufou, Vendée
+          </div>
+        </div>
+        <div class="location-detail">
+          <span class="icon">✉️</span>
+          <div>contact@fermedupetitboisjoli.fr</div>
+        </div>
+        <div class="location-detail">
+          <span class="icon">📱</span>
+          <div>
+            <a href="https://www.facebook.com/p/La-Ferme-du-Petit-Bois-Joli-61573866923563/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.3rem;">
+              <img src="https://cdn.simpleicons.org/facebook/1877F2" width="16" height="16" alt="Facebook"> Facebook
+            </a>
+            <a href="https://www.instagram.com/lafermedupetitboisjoli/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.3rem;">
+              <img src="https://cdn.simpleicons.org/instagram/E4405F" width="16" height="16" alt="Instagram"> Instagram
+            </a>
+            <a href="https://www.tiktok.com/@lafermedupetitboi" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:0.4rem;">
+              <img src="https://cdn.simpleicons.org/tiktok/000000" width="16" height="16" alt="TikTok"> TikTok
+            </a>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <a href="actualite.html" class="btn btn-outline">📰 Voir les actualités</a>
+        </div>
+      </div>
+      <div style="flex:1;min-width:250px;background:var(--bg-section);border-radius:12px;padding:2rem;text-align:center;">
+        <div style="font-size:4rem;margin-bottom:1rem;">
+
+        <iframe style="width: 100%; height: 250px; border: 0;" allowfullscreen allow="geolocation" src="https://u.osmfr.org/m/1428121/"></iframe>
+        </div>
+        <p style="font-size:0.95rem;">La ferme est située en plein cœur de la Vendée, entre Belleville-sur-Vie, les Lucs-sur-Boulogne, Beaufou et le Poiré-sur-Vie.</p>
+        <p style="font-size:0.9rem;color:var(--text-light);margin-top:0.5rem;">Parking gratuit sur place · Accès PMR</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══ CTA DONS ══ -->
+<section>
+  <div class="section-inner text-center fade-up">
+    <div style="background:linear-gradient(135deg,var(--pink-accent),#C0508A);border-radius:20px;padding:3rem 2rem;max-width:700px;margin:0 auto;box-shadow:0 8px 30px rgba(232,124,160,0.35);">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">💚</div>
+      <h2 style="color:white;">Soutenez la ferme</h2>
+      <p style="color:rgba(255,255,255,0.92);margin:1rem 0 1.5rem;">La ferme vit grâce à votre générosité. Chaque don, grand ou petit, contribue au bien-être de nos animaux et à nos activités pédagogiques.</p>
+      <a href="dons.html" class="btn" style="background:white;color:var(--pink-accent);font-weight:800;">💚 Faire un don</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA BENEVOLES ══ -->
+<section class="bg-alt">
+  <div class="section-inner text-center fade-up">
+    <div class="info-banner" style="max-width:700px;margin:0 auto;">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">🤝</div>
+      <h2>Rejoignez l'aventure !</h2>
+      <p style="margin:1rem 0 1.5rem;">La ferme vit grâce à ses bénévoles passionnés. Rejoignez notre équipe et participez à ce beau projet humain et animal.</p>
+      <a href="benevoles.html" class="btn" style="background:white;color:var(--green-dark);">🌻 Devenir bénévole</a>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="data/accueil.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const d = accueilData;
+
+  // Hero
+  document.getElementById('hero-title').textContent   = d.hero.titre;
+  document.getElementById('hero-subtitle').textContent = d.hero.sousTitre;
+  document.getElementById('hero-desc').textContent     = d.hero.description;
+  document.getElementById('hero-btn1').href = d.hero.btnPrimary.href;
+  document.getElementById('hero-btn1').innerHTML = '🌿 ' + d.hero.btnPrimary.label;
+  document.getElementById('hero-btn2').href = d.hero.btnSecondary.href;
+  document.getElementById('hero-btn2').innerHTML = '🎯 ' + d.hero.btnSecondary.label;
+
+  const badgesEl = document.getElementById('hero-badges');
+  d.hero.badges.forEach(b => {
+    badgesEl.innerHTML += `<span class="badge">${b.icon} ${b.label}</span>`;
+  });
+
+  // Chiffres
+  const chiffresEl = document.getElementById('chiffres-grid');
+  d.chiffres.forEach(c => {
+    chiffresEl.innerHTML += `
+      <div class="card fade-up" style="text-align:center;padding:2rem 1rem;">
+        <div style="font-size:2.5rem;margin-bottom:0.5rem;">${c.icone}</div>
+        <div style="font-family:'Caveat',cursive;font-size:2.2rem;font-weight:700;color:var(--green-dark);">${c.valeur}</div>
+        <div style="font-size:0.9rem;font-weight:600;color:var(--text-light);margin-top:0.25rem;">${c.label}</div>
+      </div>`;
+  });
+
+  // Mission
+  document.getElementById('mission-titre').textContent = d.mission.titre;
+  document.getElementById('mission-texte').textContent  = d.mission.texte;
+
+  // Services
+  const servicesEl = document.getElementById('services-grid');
+  d.cartes.forEach(c => {
+    const tagClass = c.tagCouleur || '';
+    servicesEl.innerHTML += `
+      <div class="card fade-up">
+        <div class="card-icon">${c.icone}</div>
+        <div class="card-body">
+          <h3>${c.titre}</h3>
+          <p>${c.texte}</p>
+          <span class="card-tag ${tagClass}">${c.tag}</span>
+        </div>
+      </div>`;
+  });
+
+  // Re-trigger fade-up for dynamically added elements
+  setTimeout(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
+  }, 100);
+});
+</script>
+</body>
+</html>

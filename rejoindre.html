@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devenir bénévole — La Ferme du Petit Bois Joli</title>
+  <meta name="description" content="Rejoignez l'équipe de bénévoles de la Ferme du Petit Bois Joli en Vendée. Soins aux animaux, animations, bricolage, communication… trouvez votre mission !">
+  <link rel="icon" type="image/jpeg" href="assets/logo/logo.jpg">
+  <link rel="stylesheet" href="style/main.css">
+  <style>
+    /* ── Hero ── */
+    .benevole-hero {
+      background: linear-gradient(135deg, #5A9147 0%, #3A6B35 50%, var(--brown-dark) 100%);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .benevole-hero::before {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 55px;
+      background: var(--bg-cream);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .benevole-hero h1 { color: white; }
+    .benevole-hero .subtitle-page { color: rgba(255,255,255,0.82); font-family:'Caveat',cursive; font-size:1.4rem; margin-top:0.5rem; }
+    .benevole-hero p.hero-desc { color: rgba(255,255,255,0.92); max-width:620px; margin:1.5rem auto 0; font-size:1.05rem; line-height:1.8; }
+
+    /* ── Mission cards ── */
+    .mission-card {
+      background: white;
+      border-radius: 20px;
+      padding: 1.75rem;
+      box-shadow: 0 4px 20px var(--shadow);
+      border: 1px solid rgba(184,146,106,0.2);
+      transition: transform 0.22s, box-shadow 0.22s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .mission-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 40px var(--shadow-strong);
+    }
+    .mission-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .mission-icone {
+      width: 54px; height: 54px;
+      background: linear-gradient(135deg, var(--bg-light), var(--bg-section));
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.7rem;
+      flex-shrink: 0;
+      border: 1px solid rgba(184,146,106,0.2);
+    }
+    .mission-card h3 { margin-bottom: 0; font-size: 1.25rem; }
+    .mission-card p { font-size: 0.92rem; line-height: 1.65; flex: 1; }
+    .mission-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: auto;
+    }
+    .mission-tag {
+      background: var(--bg-section);
+      color: var(--brown-medium);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: 10px;
+    }
+    .mission-dispo {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--green-dark);
+      font-weight: 700;
+      margin-top: 0.4rem;
+    }
+
+    /* ── Témoignages ── */
+    .temoignage-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px var(--shadow);
+      border-left: 5px solid var(--green-medium);
+      position: relative;
+    }
+    .temoignage-card::before {
+      content: '"';
+      position: absolute;
+      top: 0.5rem; left: 1.25rem;
+      font-family: 'Caveat', cursive;
+      font-size: 5rem;
+      color: var(--green-light);
+      opacity: 0.4;
+      line-height: 1;
+    }
+    .temoignage-texte {
+      font-size: 1rem;
+      line-height: 1.75;
+      font-style: italic;
+      color: var(--text-medium);
+      margin-bottom: 1.25rem;
+      padding-top: 1rem;
+    }
+    .temoignage-auteur {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .temo-avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--bg-light), var(--bg-section));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      border: 2px solid var(--brown-light);
+      flex-shrink: 0;
+    }
+    .temo-prenom { font-family: 'Caveat', cursive; font-size: 1.2rem; font-weight: 700; color: var(--brown-dark); }
+    .temo-role { font-size: 0.78rem; color: var(--text-light); }
+
+    /* ── FAQ ── */
+    .faq-item {
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px var(--shadow);
+      overflow: hidden;
+      border: 1px solid rgba(184,146,106,0.15);
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--brown-dark);
+      transition: background 0.15s;
+    }
+    .faq-question:hover { background: var(--bg-section); }
+    .faq-arrow {
+      font-size: 1rem;
+      color: var(--green-dark);
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-reponse {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.25s;
+      padding: 0 1.5rem;
+      color: var(--text-medium);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-reponse {
+      max-height: 200px;
+      padding: 0 1.5rem 1.25rem;
+    }
+
+    /* ── Formulaire ── */
+    .form-card {
+      background: white;
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: 0 6px 30px var(--shadow);
+      border: 1px solid rgba(184,146,106,0.2);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-medium);
+      letter-spacing: 0.02em;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--bg-section);
+      border-radius: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      background: var(--bg-cream);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--green-medium);
+      box-shadow: 0 0 0 3px rgba(90,145,71,0.15);
+      background: white;
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-checkboxes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .form-check {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--bg-section);
+      padding: 0.35rem 0.75rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-medium);
+      transition: background 0.15s;
+    }
+    .form-check input[type="checkbox"] { accent-color: var(--green-dark); width: 15px; height: 15px; }
+    .form-check:has(input:checked) { background: #D6EDD3; color: var(--green-dark); }
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--green-dark);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      margin-top: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(58,107,53,0.4);
+      background: #2A5425;
+    }
+    .form-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 0.75rem;
+    }
+
+    /* success message */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+    .form-success .success-icon { font-size: 4rem; margin-bottom: 1rem; }
+    .form-success h3 { color: var(--green-dark); margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<!-- ══ HERO ══ -->
+<div class="benevole-hero">
+  <div style="font-size:3.5rem;margin-bottom:1rem;">🌻</div>
+  <h1 id="hero-titre"></h1>
+  <p class="subtitle-page" id="hero-subtitle"></p>
+  <p class="hero-desc" id="hero-desc"></p>
+  <div style="margin-top:2rem;">
+    <a href="#formulaire" class="btn" style="background:white;color:var(--green-dark);font-weight:800;">🤝 Je veux m'engager</a>
+  </div>
+</div>
+
+<!-- ══ POURQUOI ══ -->
+<section>
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">💚</span>
+        <div class="line"></div>
+      </div>
+      <h2 id="pourquoi-titre"></h2>
+    </div>
+    <div class="cards-grid" id="pourquoi-grid"></div>
+  </div>
+</section>
+
+<!-- ══ MISSIONS ══ -->
+<section class="bg-wood">
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">🎯</span>
+        <div class="line"></div>
+      </div>
+      <h2>Nos missions bénévoles</h2>
+      <p>Trouvez la mission qui vous correspond</p>
+    </div>
+    <div class="cards-grid" id="missions-grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));"></div>
+  </div>
+</section>
+
+<!-- ══ TÉMOIGNAGES ══ -->
+<section>
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">💬</span>
+        <div class="line"></div>
+      </div>
+      <h2>Ils témoignent</h2>
+      <p>Ce que nos bénévoles disent de leur expérience</p>
+    </div>
+    <div class="cards-grid" id="temoignages-grid"></div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="bg-alt">
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">❓</span>
+        <div class="line"></div>
+      </div>
+      <h2>Questions fréquentes</h2>
+    </div>
+    <div id="faq-list" style="max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:0.75rem;"></div>
+  </div>
+</section>
+
+<!-- ══ FORMULAIRE ══ -->
+<section id="formulaire">
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">✍️</span>
+        <div class="line"></div>
+      </div>
+      <h2 id="form-titre"></h2>
+      <p id="form-subtitle"></p>
+    </div>
+    <iframe id="haWidget" allowtransparency="true" scrolling="no" 
+            src="https://www.helloasso.com/associations/la-ferme-du-petit-bois-joli/adhesions/adhesion/widget" 
+            style="width: 100%; height: 1000px; border: none;" onload="window.addEventListener('message', function(e) { const dataHeight = e.data.height; const haWidgetElement = document.getElementById('haWidget'); 
+
+  if (dataHeight > parseFloat(haWidgetElement.height || 0)) { haWidgetElement.height = dataHeight + 'px';}})"></iframe>
+    <div class="form-card fade-up" style="display:none;">
+      <form id="benevole-form" novalidate >
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="prenom">Prénom *</label>
+            <input type="text" id="prenom" name="prenom" required placeholder="Votre prénom">
+          </div>
+          <div class="form-group">
+            <label for="nom">Nom *</label>
+            <input type="text" id="nom" name="nom" required placeholder="Votre nom">
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required placeholder="votre@email.fr">
+          </div>
+          <div class="form-group">
+            <label for="tel">Téléphone</label>
+            <input type="tel" id="tel" name="tel" placeholder="06 XX XX XX XX">
+          </div>
+          <div class="form-group">
+            <label for="age">Tranche d'âge</label>
+            <select id="age" name="age">
+              <option value="">— Sélectionner —</option>
+              <option>Moins de 18 ans (avec autorisation parentale)</option>
+              <option>18 – 25 ans</option>
+              <option>26 – 40 ans</option>
+              <option>41 – 60 ans</option>
+              <option>Plus de 60 ans</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="dispo">Disponibilités</label>
+            <select id="dispo" name="dispo">
+              <option value="">— Sélectionner —</option>
+              <option>Week-ends uniquement</option>
+              <option>En semaine uniquement</option>
+              <option>Week-ends + semaine</option>
+              <option>Événements ponctuels seulement</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Missions qui m'intéressent</label>
+            <div class="form-checkboxes" id="missions-checks"></div>
+          </div>
+          <div class="form-group full">
+            <label for="message">Parlez-nous de vous !</label>
+            <textarea id="message" name="message" placeholder="Vos motivations, compétences, expériences avec les animaux… tout ce qui vous semble utile 😊"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">🌻 Envoyer ma candidature</button>
+        <p class="form-note">Vos informations sont utilisées uniquement pour vous recontacter. Pas de spam, promis ! 🐾</p>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <div class="success-icon">🎉</div>
+        <h3>Merci, on a hâte de vous rencontrer !</h3>
+        <p style="color:var(--text-medium);">Votre message a bien été envoyé. Nous vous recontactons très prochainement.<br>En attendant, suivez-nous sur les réseaux sociaux !</p>
+        <div style="margin-top:1.5rem;display:flex;justify-content:center;gap:0.75rem;flex-wrap:wrap;">
+          <a href="benevoles.html" class="btn btn-outline">👥 L'équipe actuelle</a>
+          <a href="index.html" class="btn btn-primary">🏡 Retour à l'accueil</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="data/rejoindre.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const d = rejoindreData;
+
+  // Hero
+  document.getElementById('hero-titre').textContent    = d.intro.titre;
+  document.getElementById('hero-subtitle').textContent = d.intro.sousTitre;
+  document.getElementById('hero-desc').textContent     = d.intro.texte;
+
+  // Pourquoi
+  document.getElementById('pourquoi-titre').textContent = d.pourquoi.titre;
+  const pourquoiEl = document.getElementById('pourquoi-grid');
+  d.pourquoi.raisons.forEach(r => {
+    pourquoiEl.innerHTML += `
+      <div class="card fade-up">
+        <div class="card-icon">${r.icone}</div>
+        <div class="card-body">
+          <h3>${r.titre}</h3>
+          <p>${r.texte}</p>
+        </div>
+      </div>`;
+  });
+
+  // Missions
+  const missionsEl = document.getElementById('missions-grid');
+  const checksEl   = document.getElementById('missions-checks');
+  d.missions.forEach((m, i) => {
+    const tags = m.competences.map(c => `<span class="mission-tag">${c}</span>`).join('');
+    missionsEl.innerHTML += `
+      <div class="mission-card fade-up">
+        <div class="mission-header">
+          <div class="mission-icone">${m.icone}</div>
+          <h3>${m.titre}</h3>
+        </div>
+        <p>${m.description}</p>
+        <div class="mission-dispo">🕐 ${m.disponibilite}</div>
+        <div class="mission-meta">${tags}</div>
+      </div>`;
+    checksEl.innerHTML += `
+      <label class="form-check">
+        <input type="checkbox" name="missions" value="${m.titre}">
+        ${m.icone} ${m.titre}
+      </label>`;
+  });
+
+  // Témoignages
+  const temoEl = document.getElementById('temoignages-grid');
+  d.temoignages.forEach(t => {
+    temoEl.innerHTML += `
+      <div class="temoignage-card fade-up">
+        <p class="temoignage-texte">${t.citation}</p>
+        <div class="temoignage-auteur">
+          <div class="temo-avatar">${t.icone}</div>
+          <div>
+            <div class="temo-prenom">${t.prenom}</div>
+            <div class="temo-role">${t.role}</div>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  // FAQ accordion
+  const faqEl = document.getElementById('faq-list');
+  d.faq.forEach((f, i) => {
+    const item = document.createElement('div');
+    item.className = 'faq-item fade-up';
+    item.innerHTML = `
+      <button class="faq-question" aria-expanded="false">
+        ${f.question}
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-reponse">${f.reponse}</div>`;
+    item.querySelector('.faq-question').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+    faqEl.appendChild(item);
+  });
+
+  // Formulaire
+  document.getElementById('form-titre').textContent    = d.formulaire.titre;
+  document.getElementById('form-subtitle').textContent = d.formulaire.sousTitre;
+
+  // Form submit → mailto
+  document.getElementById('benevole-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const prenom  = form.prenom.value.trim();
+    const nom     = form.nom.value.trim();
+    const email   = form.email.value.trim();
+    const tel     = form.tel.value.trim();
+    const age     = form.age.value;
+    const dispo   = form.dispo.value;
+    const message = form.message.value.trim();
+    const missions = [...form.querySelectorAll('input[name="missions"]:checked')]
+      .map(cb => cb.value).join(', ') || 'Non précisé';
+
+    if (!prenom || !nom || !email) {
+      alert('Merci de remplir les champs obligatoires (prénom, nom, email).');
+      return;
+    }
+
+    const subject = encodeURIComponent(`Candidature bénévole — ${prenom} ${nom}`);
+    const body = encodeURIComponent(
+      `Bonjour,\n\nJe souhaite devenir bénévole à la Ferme du Petit Bois Joli.\n\n` +
+      `Prénom : ${prenom}\nNom : ${nom}\nEmail : ${email}\nTéléphone : ${tel || 'Non renseigné'}\n` +
+      `Tranche d'âge : ${age || 'Non précisée'}\nDisponibilités : ${dispo || 'Non précisées'}\n` +
+      `Missions souhaitées : ${missions}\n\nMessage :\n${message || 'Aucun message.'}\n\nCordialement,\n${prenom} ${nom}`
+    );
+
+    window.location.href = `mailto:${d.formulaire.email}?subject=${subject}&body=${body}`;
+
+    // Show success
+    form.style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  });
+
+  // Fade-up observer
+  setTimeout(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
+  }, 100);
+});
+</script>
+</body>
+</html>

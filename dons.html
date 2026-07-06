@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faire un don — La Ferme du Petit Bois Joli</title>
+  <meta name="description" content="Soutenez la Ferme du Petit Bois Joli par un don. Chaque contribution aide nos animaux et finance nos activités pédagogiques en Vendée.">
+  <link rel="icon" type="image/jpeg" href="assets/logo/logo.jpg">
+  <link rel="stylesheet" href="style/main.css">
+  <style>
+    /* ── Hero don ── */
+    .don-hero {
+      background: linear-gradient(135deg, var(--green-dark) 0%, #2A5425 50%, var(--brown-dark) 100%);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .don-hero::before {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 55px;
+      background: var(--bg-cream);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .don-hero h1 { color: white; }
+    .don-hero .subtitle-page { color: rgba(255,255,255,0.8); font-family:'Caveat',cursive; font-size:1.4rem; margin-top:0.5rem; }
+    .don-hero p.hero-desc { color: rgba(255,255,255,0.9); max-width:620px; margin:1.5rem auto 0; font-size:1.05rem; line-height:1.8; }
+
+    /* ── Montants suggérés ── */
+    .montants-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+    .montant-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.75rem 1.25rem;
+      text-align: center;
+      box-shadow: 0 4px 18px var(--shadow);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .montant-card:hover {
+      border-color: var(--green-medium);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px var(--shadow-strong);
+    }
+    .montant-card .montant-icone { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .montant-card .montant-valeur {
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 0.5rem;
+    }
+    .montant-card .montant-impact {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    /* ── Méthodes de don ── */
+    .methode-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px var(--shadow);
+      border: 1px solid rgba(184,146,106,0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: transform 0.2s;
+    }
+    .methode-card:hover { transform: translateY(-3px); }
+    .methode-card.principal {
+      border: 2px solid var(--green-medium);
+      position: relative;
+    }
+    .methode-badge {
+      position: absolute;
+      top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--green-dark);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.2rem 0.9rem;
+      border-radius: 10px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .methode-icone {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+    .methode-card h3 { margin-bottom: 0.25rem; }
+    .methode-card p { font-size: 0.92rem; line-height: 1.65; flex: 1; }
+
+    /* ── Fiscalité ── */
+    .fiscalite-box {
+      background: linear-gradient(135deg, #EAF4E8, #D6EDD3);
+      border: 2px solid var(--green-medium);
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .fiscalite-box h3 { color: var(--green-dark); margin-bottom: 0.75rem; }
+    .fiscalite-box .exemple {
+      margin-top: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: white;
+      padding: 0.5rem 1.1rem;
+      border-radius: 20px;
+      font-weight: 700;
+      color: var(--green-dark);
+      font-size: 0.92rem;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    /* ── Adhésion ── */
+    .tarif-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      transition: background 0.15s;
+    }
+    .tarif-row:hover { background: var(--bg-section); }
+    .tarif-row + .tarif-row { border-top: 1px solid var(--bg-section); }
+    .tarif-prix { font-family: 'Caveat', cursive; font-size: 1.3rem; font-weight: 700; color: var(--green-dark); }
+
+    /* ── Merci banner ── */
+    .merci-banner {
+      background: linear-gradient(135deg, var(--pink-accent), #C0508A);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      text-align: center;
+      color: white;
+      box-shadow: 0 8px 30px rgba(232,124,160,0.4);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .merci-banner h2 { color: white; margin-bottom: 0.75rem; }
+    .merci-banner p { color: rgba(255,255,255,0.93); font-size: 1.05rem; line-height: 1.8; }
+
+    /* ── HelloAsso placeholder ── */
+    .helloasso-placeholder {
+      background: linear-gradient(135deg, #E8F9F7, #D0F0EC);
+      border: 2px dashed #00B0A0;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .helloasso-placeholder p { color: #007A70; font-size: 0.9rem; }
+    .btn-helloasso {
+      background: #00B0A0;
+      color: white;
+      padding: 0.85rem 2rem;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .btn-helloasso:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,176,160,0.4);
+      color: white;
+    }
+
+    /* ── HelloAsso modal ── */
+    .ha-widget-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(15px) brightness(0.5);
+      z-index: 2147483647;
+    }
+    .ha-widget-close {
+      position: absolute;
+      top: 0.5rem;
+      right: 1.5rem;
+      z-index: 2147483648;
+      background: #EFEFF4;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: background 0.15s ease;
+    }
+    .ha-widget-content {
+      position: relative;
+      width: 72vw;
+      max-width: none;
+      overflow: hidden;
+      padding: 25%;
+      box-sizing: border-box;
+    }
+    .ha-widget-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 0;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<!-- ══ HERO ══ -->
+<div class="don-hero">
+  <div style="font-size:3.5rem;margin-bottom:1rem;">💚</div>
+  <h1 id="hero-titre"></h1>
+  <p class="subtitle-page" id="hero-subtitle"></p>
+  <p class="hero-desc" id="hero-desc"></p>
+</div>
+
+<!-- ══ POURQUOI DONNER ══ -->
+<section>
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">🌿</span>
+        <div class="line"></div>
+      </div>
+      <h2 id="pourquoi-titre"></h2>
+    </div>
+    <div class="cards-grid" id="pourquoi-grid"></div>
+  </div>
+</section>
+
+<!-- ══ MONTANTS SUGGÉRÉS ══ -->
+<section class="bg-wood">
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">🎯</span>
+        <div class="line"></div>
+      </div>
+      <h2>Combien donner ?</h2>
+      <p>Chaque montant a un impact concret sur la vie de la ferme</p>
+    </div>
+    <div class="montants-grid" id="montants-grid"></div>
+  </div>
+</section>
+
+<!-- ══ MÉTHODES ══ -->
+<section id="helloasso">
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">💳</span>
+        <div class="line"></div>
+      </div>
+      <h2>Comment faire un don ?</h2>
+      <p>Choisissez la méthode qui vous convient</p>
+    </div>
+    <div class="cards-grid" id="methodes-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));"></div>
+  </div>
+</section>
+
+<!-- ══ AVANTAGE FISCAL ══ -->
+<section class="bg-alt">
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">🏛️</span>
+        <div class="line"></div>
+      </div>
+      <h2>Avantage fiscal</h2>
+    </div>
+    <div class="fiscalite-box fade-up">
+      <h3 id="fiscalite-titre"></h3>
+      <p id="fiscalite-texte"></p>
+      <div class="exemple">💡 <span id="fiscalite-exemple"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ADHÉSION ══ -->
+<section>
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">🤝</span>
+        <div class="line"></div>
+      </div>
+      <h2 id="adhesion-titre"></h2>
+    </div>
+    <div class="location-card fade-up" style="max-width:700px;margin:0 auto;flex-direction:column;">
+      <p id="adhesion-texte" style="font-size:1.05rem;line-height:1.8;text-align:center;margin-bottom:1.5rem;"></p>
+      <div id="adhesion-tarifs" style="width:100%;"></div>
+      <div style="text-align:center;margin-top:1.5rem;">
+        <a href="rejoindre.html#formulaire" class="btn btn-primary">👥 Rejoindre l'équipe</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BESOINS EN NATURE ══ -->
+<section class="bg-wood">
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">🔹</span>
+        <div class="line"></div>
+      </div>
+      <h2 id="besoins-titre"></h2>
+      <p id="besoins-subtitle"></p>
+    </div>
+    <div class="cards-grid" id="besoins-grid" style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));"></div>
+    <div class="text-center fade-up" style="margin-top:2rem;">
+      <a href="mailto:contact@fermedupetitboisjoli.fr?subject=Don en nature" class="btn btn-primary">📦 Proposer un don en nature</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PARRAINAGE ══ -->
+<section id="parrainage">
+  <div class="section-inner">
+    <div class="section-title fade-up">
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon">🌿</span>
+        <div class="line"></div>
+      </div>
+      <h2 id="parrainage-titre"></h2>
+    </div>
+
+    <div class="highlight-box fade-up" style="max-width:720px;margin:0 auto 2rem;text-align:center;">
+      <p id="parrainage-intro" style="font-size:1rem;line-height:1.8;"></p>
+    </div>
+
+    <!-- Animaux parrainés -->
+    <div class="fade-up" style="max-width:720px;margin:0 auto 2.5rem;">
+      <h3 style="text-align:center;font-family:'Caveat',cursive;font-size:1.5rem;color:var(--green-dark);margin-bottom:1rem;">
+        Aujourd'hui, plusieurs de nos animaux ont déjà la chance d'être soutenus :
+      </h3>
+      <div id="parraines-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;"></div>
+      <p id="parrainage-merci" style="text-align:center;margin-top:1.5rem;color:var(--text-medium);font-size:0.95rem;font-weight:600;"></p>
+    </div>
+
+    <!-- En attente -->
+    <div class="fade-up" style="max-width:720px;margin:0 auto 2rem;background:var(--bg-section);border-radius:16px;padding:1.75rem;text-align:center;">
+      <p id="parrainage-attente" style="font-weight:600;color:var(--brown-dark);margin-bottom:1rem;"></p>
+      <div id="animaux-attente" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.5rem;"></div>
+    </div>
+
+    <!-- Conclusion + CTA -->
+    <div class="location-card fade-up" style="max-width:700px;margin:0 auto;flex-direction:column;text-align:center;">
+      <p id="parrainage-conclusion" style="font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem;"></p>
+      <p id="parrainage-cta" style="font-size:1rem;color:var(--green-dark);font-weight:700;margin-bottom:1.5rem;"></p>
+      <a href="mailto:contact@fermedupetitboisjoli.fr?subject=Parrainage d'un animal" class="btn btn-primary">📩 Nous contacter pour parrainer</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ MERCI ══ -->
+<section class="bg-alt">
+  <div class="section-inner fade-up">
+    <div class="merci-banner">
+      <div style="font-size:3rem;margin-bottom:0.75rem;">🐾❤️</div>
+      <h2 id="merci-titre"></h2>
+      <p id="merci-texte"></p>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<!-- ══ HelloAsso Modal Overlay ══ -->
+<div id="haWidgetModal" style="position: fixed; inset: 0; display: none; align-items: center; justify-content: center; backdrop-filter: blur(15px) brightness(0.5); z-index: 2147483647;">
+  <button id="closeHaWidgetBtn" style="position: absolute; top: .5rem; right: 1.5rem; z-index: 2147483648; background: #EFEFF4; border: none; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  </button>
+  <div class="modal-content" style="position: relative; width: 100%; max-width: 950px; height: 100%; overflow: hidden;">
+    <iframe
+      id="haWidget"
+      src="https://www.helloasso.com/associations/la-ferme-du-petit-bois-joli/formulaires/3/widget?view=overlay"
+      style="width: 100%; height: 100%; border: none; border-radius: 8px;"
+    ></iframe>
+  </div>
+</div>
+
+<script src="data/dons.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const d = donsData;
+
+  // Hero
+  document.getElementById('hero-titre').textContent    = d.intro.titre;
+  document.getElementById('hero-subtitle').textContent = d.intro.sousTitre;
+  document.getElementById('hero-desc').textContent     = d.intro.texte;
+
+  // Pourquoi
+  document.getElementById('pourquoi-titre').textContent = d.pourquoi.titre;
+  const pourquoiEl = document.getElementById('pourquoi-grid');
+  d.pourquoi.points.forEach(p => {
+    pourquoiEl.innerHTML += `
+      <div class="card fade-up">
+        <div class="card-icon">${p.icone}</div>
+        <div class="card-body">
+          <h3>${p.titre}</h3>
+          <p>${p.texte}</p>
+        </div>
+      </div>`;
+  });
+
+  // Montants
+  const montantsEl = document.getElementById('montants-grid');
+  d.montants.forEach(m => {
+    montantsEl.innerHTML += `
+      <div class="montant-card fade-up">
+        <div class="montant-icone">${m.icone}</div>
+        <div class="montant-valeur">${m.montant}</div>
+        <div class="montant-impact">${m.impact}</div>
+      </div>`;
+  });
+
+  // Méthodes
+  const methodesEl = document.getElementById('methodes-grid');
+  d.methodes.forEach(m => {
+    const badgeHtml   = m.principal ? '<div class="methode-badge">⭐ Recommandé</div>' : '';
+    const principalCls = m.principal ? 'principal' : '';
+    const btnHtml = m.cta
+      ? m.principal
+        ? `<button id="openHaOverlay" type="button" class="btn-helloasso">${m.icone} ${m.cta}</button>`
+        : `<a href="${m.href}" class="btn btn-outline">${m.icone} ${m.cta}</a>`
+      : '';
+   const placeholderHtml = m.principal
+     ? `<div class="helloasso-placeholder">
+          <p>👆 Cliquez ci-dessus pour accéder au formulaire de don sécurisé HelloAsso.</p>
+        </div>`
+     : '';
+    methodesEl.innerHTML += `
+      <div class="methode-card ${principalCls} fade-up">
+        ${badgeHtml}
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <div class="methode-icone" style="background:${m.couleur}22;">${m.icone}</div>
+          <h3>${m.titre}</h3>
+        </div>
+        <p>${m.description}</p>
+        ${btnHtml}
+        ${placeholderHtml}
+      </div>`;
+  });
+
+  // HelloAsso modal
+  const openBtn = document.getElementById('openHaOverlay');
+  const modal = document.getElementById('haWidgetModal');
+  const closeBtn = document.getElementById('closeHaWidgetBtn');
+  const body = document.body;
+
+  if (openBtn && modal && closeBtn) {
+    openBtn.addEventListener('click', () => {
+      modal.style.display = 'flex';
+      body.style.overflow = 'hidden';
+      body.style.overscrollBehaviorY = 'none';
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+      body.style.overflow = '';
+      body.style.overscrollBehaviorY = '';
+    });
+
+    // Close on backdrop click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        body.style.overflow = '';
+        body.style.overscrollBehaviorY = '';
+      }
+    });
+
+    closeBtn.addEventListener('mouseenter', () => {
+      closeBtn.style.background = '#E0E0E8';
+    });
+
+    closeBtn.addEventListener('mouseleave', () => {
+      closeBtn.style.background = '#EFEFF4';
+    });
+  }
+
+  // Fiscalité
+  document.getElementById('fiscalite-titre').textContent   = d.fiscalite.titre;
+  document.getElementById('fiscalite-texte').textContent   = d.fiscalite.texte;
+  document.getElementById('fiscalite-exemple').textContent = d.fiscalite.exemple;
+
+  // Adhésion
+  document.getElementById('adhesion-titre').textContent = d.adhesion.titre;
+  document.getElementById('adhesion-texte').textContent  = d.adhesion.texte;
+  const tarifsEl = document.getElementById('adhesion-tarifs');
+  d.adhesion.tarifs.forEach(t => {
+    tarifsEl.innerHTML += `
+      <div class="tarif-row">
+        <span style="font-weight:600;color:var(--text-medium);">${t.label}</span>
+        <span class="tarif-prix">${t.prix}</span>
+      </div>`;
+  });
+
+  // Besoins en nature
+  document.getElementById('besoins-titre').textContent    = d.besoins.titre;
+  document.getElementById('besoins-subtitle').textContent = d.besoins.sousTitre;
+  const besoinsEl = document.getElementById('besoins-grid');
+  d.besoins.categories.forEach(cat => {
+    const items = cat.items.map(i => `<li style="padding:0.25rem 0;display:flex;gap:0.5rem;font-size:0.92rem;color:var(--text-medium);"><span style="color:var(--green-dark);">✓</span>${i}</li>`).join('');
+    besoinsEl.innerHTML += `
+      <div class="card fade-up">
+        <div class="card-icon">${cat.icone}</div>
+        <div class="card-body">
+          <h3>${cat.titre}</h3>
+          <ul style="list-style:none;margin-top:0.5rem;">${items}</ul>
+        </div>
+      </div>`;
+  });
+
+  // Parrainage
+  const p = d.parrainage;
+  document.getElementById('parrainage-titre').textContent = p.titre;
+  document.getElementById('parrainage-intro').textContent = p.intro;
+  document.getElementById('parrainage-merci').textContent = p.merci;
+  document.getElementById('parrainage-attente').textContent = p.attente;
+  document.getElementById('parrainage-conclusion').textContent = p.conclusion;
+  document.getElementById('parrainage-cta').textContent = p.cta;
+
+  const parrainesEl = document.getElementById('parraines-list');
+  p.parraines.forEach(parr => {
+    parrainesEl.innerHTML += `
+      <div style="background:white;border-radius:12px;padding:1rem;text-align:center;box-shadow:0 2px 10px var(--shadow);">
+        <div style="font-size:2.5rem;margin-bottom:0.5rem;">${parr.icone}</div>
+        <div style="font-family:'Caveat',cursive;font-size:1.2rem;font-weight:700;color:var(--brown-dark);">${parr.nom}</div>
+        <div style="font-size:0.85rem;color:var(--text-light);margin-top:0.25rem;">parrainé par<br><strong>${parr.parrain}</strong></div>
+      </div>`;
+  });
+
+  const attenteEl = document.getElementById('animaux-attente');
+  p.animaux_attente.forEach(animal => {
+    attenteEl.innerHTML += `<div style="background:white;padding:0.6rem;border-radius:8px;font-size:0.9rem;font-weight:600;color:var(--text-medium);">${animal}</div>`;
+  });
+
+  // Merci
+  document.getElementById('merci-titre').textContent = d.merci.titre;
+  document.getElementById('merci-texte').textContent  = d.merci.texte;
+
+  // Fade-up observer
+  setTimeout(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
+  }, 100);
+});
+</script>
+</body>
+</html>
