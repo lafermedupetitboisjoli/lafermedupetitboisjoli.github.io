@@ -1,0 +1,35 @@
+.historique-intro {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.historique-intro-text {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  text-align: center;
+}
+
+.historique-cta {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.historique-cta-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.historique-cta-text {
+  margin: 1rem 0 1.5rem;
+}
+
+.historique-btn-light {
+  background: white;
+  color: var(--green-dark);
+}
+
+.historique-btn-outline {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+}

@@ -52,16 +52,5 @@ const accueilData = {
       tag: "Inclusion",
       tagCouleur: "pink",
     },
-  ],
-
-  adresse: {
-    voie: "2 La Brouardière",
-    codePostal: "85170",
-    ville: "Beaufou",
-    departement: "Vendée",
-    email: "contact@fermedupetitboisjoli.fr",
-    facebook: "https://www.facebook.com/p/La-Ferme-du-Petit-Bois-Joli-61573866923563/",
-    instagram: "https://www.instagram.com/lafermedupetitboisjoli/",
-    tiktok: "https://www.tiktok.com/@lafermedupetitboi",
-  },
+  ]
 };

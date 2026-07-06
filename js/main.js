@@ -59,6 +59,7 @@ function buildHeader() {
           <div class="nav-drop-menu">
             <a href="historique.html">📜 Notre histoire</a>
             <a href="activites.html">🎯 Nos activités</a>
+            <a href="partenariat.html">🤝 Partenariats</a>
             <a href="phototeque.html">📷 Photothèque</a>
           </div>
         </div>
@@ -78,34 +79,51 @@ function buildHeader() {
 }
 
 function buildFooter() {
+  const fallbackAdresse = {
+    rue: '2 La Brouardiere',
+    codePostal: '85170',
+    ville: 'Beaufou',
+    region: 'Vendee',
+    pays: 'France',
+    email: 'lafermedupetitboisjoli@gmail.com',
+    facebook: 'https://www.facebook.com/p/La-Ferme-du-Petit-Bois-Joli-61573866923563/',
+    instagram: 'https://www.instagram.com/lafermedupetitboisjoli/',
+    tiktok: 'https://www.tiktok.com/@lafermedupetitboi'
+  };
+  const adresse = (typeof contactData !== 'undefined' && contactData)
+    ? contactData
+    : fallbackAdresse;
+
   return `
   <footer>
     <div class="footer-inner">
       <div class="footer-col">
         <h4>La Ferme du Petit Bois Joli</h4>
-        <p>Une ferme pédagogique en Vendée, lieu de partage, d'apprentissage et de connexion avec la nature.</p>
+        <p>Une ferme pédagogique en Vendée</p>
+        <p>Lieu de partage, d'apprentissage </p>
+        <p>Lieu de connexion avec la nature</p>
       </div>
       <div class="footer-col">
         <h4>📍 Nous trouver</h4>
-        <p>2 La Brouardière</p>
-        <p>85170 Beaufou</p>
-        <p>Vendée, France</p>
+        <p>${adresse.rue}</p>
+        <p>${adresse.codePostal} ${adresse.ville}</p>
+        <p>${adresse.region}, ${adresse.pays}</p>
       </div>
       <div class="footer-col">
         <h4>📱 Réseaux sociaux</h4>
-        <a href="https://www.facebook.com/p/La-Ferme-du-Petit-Bois-Joli-61573866923563/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:0.5rem;">
+        <a href="${adresse.facebook}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:0.5rem;">
           <img src="https://cdn.simpleicons.org/facebook/B8926A" width="15" height="15" alt=""> Facebook
         </a>
-        <a href="https://www.instagram.com/lafermedupetitboisjoli/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:0.5rem;">
+        <a href="${adresse.instagram}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:0.5rem;">
           <img src="https://cdn.simpleicons.org/instagram/B8926A" width="15" height="15" alt=""> Instagram
         </a>
-        <a href="https://www.tiktok.com/@lafermedupetitboi" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:0.5rem;">
+        <a href="${adresse.tiktok}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:0.5rem;">
           <img src="https://cdn.simpleicons.org/tiktok/B8926A" width="15" height="15" alt=""> TikTok
         </a>
       </div>
       <div class="footer-col">
         <h4>✉️ Contact</h4>
-        <p>contact@fermedupetitboisjoli.fr</p>
+        <a href="mailto:${adresse.email}">${adresse.email}</a>
       </div>
     </div>
     <div class="footer-bottom">

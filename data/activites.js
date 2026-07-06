@@ -97,22 +97,37 @@ const activitesData = {
       ],
       couleur: "#3A6B35",
     },
+    {
+      isMajeur: true,
+      icone: "🏫",
+      titre: "Groupes scolaires, centres de loisirs & établissements spécialisés",
+      description:
+        "Nous accueillons les classes maternelles, primaires, les centres de loisirs ainsi que les établissements médico-sociaux pour des sorties pédagogiques et de découverte. Nos visites s'adaptent aux thèmes abordés en classe ou aux besoins des groupes accueillis : animaux de la ferme, nature, cycle de vie, éveil sensoriel, découverte de l'environnement et moments de partage au contact des animaux. Nous pouvons également recevoir des résidents d'EHPAD, des personnes en situation de handicap accompagnées par des IME ou d'autres structures spécialisées, ainsi que des groupes encadrés par des services médico-sociaux ou psychiatriques.",
+      details: [
+        "Programme adapté à l'âge et aux capacités des participants",
+        "Supports pédagogiques et activités de découverte",
+        "Encadrement par nos professionnels adhérents",
+        "Accueil de groupes scolaires, centres de loisirs, EHPAD et structures spécialisées",
+        "Approche bienveillante favorisant l'échange et le lien avec les animaux"
+      ],
+      contact: "Pour réserver votre sortie, contactez-nous.",
+    },
+    {
+      isMajeur: true,
+      icone: "🌻",
+      titre: "Club nature",
+      description:
+        "Le club nature est proposé comme un moment de découverte, d'observation et de partage autour du vivant. Les enfants apprennent à mieux connaître les animaux, la nature et les saisons à travers des activités adaptées, ludiques et bienveillantes.",
+      details: [
+        "Ateliers autour des animaux et de la nature",
+        "Activités adaptées aux enfants et aux groupes",
+        "Découverte sensorielle et observation du vivant",
+        "Moment convivial au contact de la ferme"
+      ],
+      image: "C:/Personnel et Confidentiel/Ferme/web/552962365_17871577782431175_3184276863323972494_n.jpg",
+      contact: "Pour organiser un club nature, contactez-nous.",
+    },
   ],
-
-  groupesScolaires: {
-    titre: "Groupes scolaires, centres de loisirs & établissements spécialisés",
-    texte:
-      "Nous accueillons les classes maternelles, primaires, les centres de loisirs ainsi que les établissements médico-sociaux pour des sorties pédagogiques et de découverte. Nos visites s'adaptent aux thèmes abordés en classe ou aux besoins des groupes accueillis : animaux de la ferme, nature, cycle de vie, éveil sensoriel, découverte de l'environnement et moments de partage au contact des animaux. Nous pouvons également recevoir des résidents d'EHPAD, des personnes en situation de handicap accompagnées par des IME ou d'autres structures spécialisées, ainsi que des groupes encadrés par des services médico-sociaux ou psychiatriques.",
-    points: [
-      "Programme adapté à l'âge et aux capacités des participants",
-      "Supports pédagogiques et activités de découverte",
-      "Encadrement par nos professionnels adhérents",
-      "Accueil de groupes scolaires, centres de loisirs, EHPAD et structures spécialisées",
-      "Approche bienveillante favorisant l'échange et le lien avec les animaux"
-    ],
-    contact: "Pour réserver votre sortie, contactez-nous.",
-  },
-
   tarifs: {
     titre: "Tarifs & Accès",
     items: [

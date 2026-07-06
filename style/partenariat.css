@@ -1,0 +1,159 @@
+.part-intro {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.part-intro p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.part-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.part-photo {
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px var(--shadow);
+  border: 1px solid rgba(184,146,106,0.2);
+  background: white;
+}
+
+.part-photo img {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  display: block;
+}
+
+.part-clickable {
+  cursor: zoom-in;
+}
+
+.part-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.part-major-block + .part-major-block {
+  margin-top: 2rem;
+}
+
+.part-major-title {
+  margin-bottom: 1rem;
+}
+
+.part-major-title p {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.part-card {
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px var(--shadow);
+  border: 1px solid rgba(184,146,106,0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.part-logo-wrap {
+  background: var(--bg-section);
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 180px;
+}
+
+.part-logo {
+  max-width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  display: block;
+}
+
+.part-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(19, 19, 19, 0.86);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.2rem;
+  z-index: 1500;
+}
+
+.part-lightbox[hidden] {
+  display: none;
+}
+
+.part-lightbox-content {
+  position: relative;
+  max-width: min(1000px, 96vw);
+  max-height: 92vh;
+}
+
+.part-lightbox img {
+  max-width: 100%;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+  background: #fff;
+}
+
+.part-lightbox-close {
+  position: absolute;
+  top: -0.6rem;
+  right: -0.6rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 999px;
+  border: 0;
+  background: #fff;
+  color: #222;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.part-body {
+  padding: 1rem 1.1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.part-body h3 {
+  margin: 0;
+}
+
+.part-body p {
+  margin: 0;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .part-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .part-gallery {
+    grid-template-columns: 1fr;
+  }
+}

@@ -7,6 +7,7 @@
     <link rel="icon" type="image/jpeg" href="assets/logo/logo.jpg">
   <meta name="description" content="Découvrez l'histoire de la Ferme du Petit Bois Joli, depuis sa création jusqu'à aujourd'hui.">
   <link rel="stylesheet" href="style/main.css">
+  <link rel="stylesheet" href="style/historique.css">
 </head>
 <body>
 
@@ -21,8 +22,8 @@
 <!-- ══ INTRO ══ -->
 <section>
   <div class="section-inner">
-    <div class="highlight-box fade-up" style="max-width:780px;margin:0 auto;">
-      <p id="intro-texte" style="font-size:1.1rem;line-height:1.9;text-align:center;"></p>
+    <div class="highlight-box historique-intro fade-up">
+      <p id="intro-texte" class="historique-intro-text"></p>
     </div>
   </div>
 </section>
@@ -61,13 +62,13 @@
 <!-- ══ CTA ══ -->
 <section class="bg-alt">
   <div class="section-inner text-center fade-up">
-    <div class="info-banner" style="max-width:650px;margin:0 auto;">
-      <div style="font-size:2.5rem;margin-bottom:1rem;">🌟</div>
+    <div class="info-banner historique-cta">
+      <div class="historique-cta-icon">🌟</div>
       <h2>Et la suite ?</h2>
-      <p style="margin:1rem 0 1.5rem;">L'histoire continue et vous êtes invité·e à en faire partie ! Venez nous rendre visite ou rejoignez notre équipe de bénévoles.</p>
+      <p class="historique-cta-text">L'histoire continue et vous êtes invité·e à en faire partie ! Venez nous rendre visite ou rejoignez notre équipe de bénévoles.</p>
       <div class="gap-center">
-        <a href="activites.html" class="btn" style="background:white;color:var(--green-dark);">🎯 Nos activités</a>
-        <a href="benevoles.html" class="btn" style="background:rgba(255,255,255,0.2);color:white;border:2px solid white;">🤝 Devenir bénévole</a>
+        <a href="activites.html" class="btn historique-btn-light">🎯 Nos activités</a>
+        <a href="benevoles.html" class="btn historique-btn-outline">🤝 Devenir bénévole</a>
       </div>
     </div>
   </div>
@@ -75,49 +76,9 @@
 
 <div id="site-footer"></div>
 
+<script src="data/contact.js"></script>
 <script src="data/historique.js"></script>
+<script src="js/historique.js"></script>
 <script src="js/main.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const d = historiqueData;
-
-  document.getElementById('subtitle-page').textContent = d.intro.sousTitre;
-  document.getElementById('intro-texte').textContent   = d.intro.texte;
-
-  // Timeline
-  const timelineEl = document.getElementById('timeline');
-  d.timeline.forEach(item => {
-    timelineEl.innerHTML += `
-      <div class="timeline-item fade-up">
-        <div class="timeline-dot">${item.icone}</div>
-        <div class="timeline-year">${item.annee}</div>
-        <div class="timeline-content">
-          <h3>${item.titre}</h3>
-          <p>${item.texte}</p>
-        </div>
-      </div>`;
-  });
-
-  // Valeurs
-  const valeursEl = document.getElementById('valeurs-grid');
-  d.valeurs.forEach(v => {
-    valeursEl.innerHTML += `
-      <div class="card fade-up" style="text-align:center;">
-        <div class="card-icon">${v.icone}</div>
-        <div class="card-body">
-          <h3>${v.titre}</h3>
-          <p>${v.texte}</p>
-        </div>
-      </div>`;
-  });
-
-  setTimeout(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
-  }, 100);
-});
-</script>
 </body>
 </html>

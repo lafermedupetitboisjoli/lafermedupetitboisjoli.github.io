@@ -1,0 +1,136 @@
+.benevole-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 20px var(--shadow);
+  transition: transform 0.25s, box-shadow 0.25s;
+  border: 1px solid rgba(184,146,106,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.benevole-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 40px var(--shadow-strong);
+}
+
+.benevole-card.rejoindre {
+  border: 2px dashed var(--green-medium);
+  background: linear-gradient(135deg, #FAF6EE, #EDE5D0);
+}
+
+.benevole-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--green-medium), var(--orange-warm));
+}
+
+.benevole-card.rejoindre::before {
+  background: linear-gradient(90deg, var(--pink-accent), var(--yellow-soft));
+}
+
+.benevole-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--bg-light), var(--bg-section));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  margin: 0.5rem auto 1.25rem;
+  border: 3px solid var(--brown-light);
+  box-shadow: 0 4px 15px var(--shadow);
+}
+
+.benevole-prenom {
+  font-family: 'Caveat', cursive;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+  margin-bottom: 0.25rem;
+}
+
+.benevole-role {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1rem;
+}
+
+.benevole-desc {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+.competences {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.competence-tag {
+  background: var(--bg-section);
+  color: var(--brown-medium);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-radius: 10px;
+}
+
+.benevole-mini {
+  background: white;
+  border-radius: 16px;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  box-shadow: 0 3px 12px var(--shadow);
+  border: 1px solid rgba(184,146,106,0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.benevole-mini:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px var(--shadow-strong);
+}
+
+.benevole-mini .benevole-avatar {
+  width: 72px;
+  height: 72px;
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.benevole-mini .benevole-prenom {
+  font-size: 1.3rem;
+  margin-bottom: 0;
+}
+
+.grid-responsables {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 300px));
+  gap: 1.75rem;
+  margin-bottom: 3rem;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.grid-benevoles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 160px));
+  gap: 1rem;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}

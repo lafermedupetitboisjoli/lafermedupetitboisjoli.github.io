@@ -28,10 +28,6 @@ const benevolesData = {
     {
       icone: "👩‍🏫",
       prenom: "Marie",
-      role: "Responsable du bien-être animal",
-      description:
-        "Technicien vétérinaire de formation, Marie veille quotidiennement à la santé et au bonheur de nos animaux. Son expertise est précieuse pour toute l'équipe et les visiteurs bénéficient de ses connaissances lors des visites.",
-      competences: ["Santé animale", "Alimentation", "Comportement animal"],
       isResponsable: false,
     },
     {
@@ -54,16 +50,16 @@ const benevolesData = {
       icone: "👩‍🦽",
       prenom: "Nathalie",
       isResponsable: false,
-    },
-    {
-      icone: "🌻",
-      prenom: "Et vous ?",
-      role: "Futur·e bénévole",
-      description:
-        "La ferme grandit et a toujours besoin de nouvelles énergies ! Que vous aimiez les animaux, la nature, l'animation ou le bricolage, votre place est ici. Rejoignez notre belle équipe !",
-      competences: ["Passion", "Bonne humeur", "Envie de partager"],
-      isResponsable: true,
-      rejoindre: true,
+    // },
+    // {
+    //   icone: "🌻",
+    //   prenom: "Et vous ?",
+    //   role: "Futur·e bénévole",
+    //   description:
+    //     "La ferme grandit et a toujours besoin de nouvelles énergies ! Que vous aimiez les animaux, la nature, l'animation ou le bricolage, votre place est ici. Rejoignez notre belle équipe !",
+    //   competences: ["Passion", "Bonne humeur", "Envie de partager"],
+    //   isResponsable: true,
+    //   rejoindre: true,
     }
   ],
 

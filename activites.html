@@ -7,88 +7,7 @@
     <link rel="icon" type="image/jpeg" href="assets/logo/logo.jpg">
   <meta name="description" content="Toutes les activités proposées par la Ferme du Petit Bois Joli : visites guidées, marche nordique, ateliers créatifs, médiation animale.">
   <link rel="stylesheet" href="style/main.css">
-  <style>
-    .activite-card {
-      background: white;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 6px 25px var(--shadow);
-      transition: transform 0.25s, box-shadow 0.25s;
-      border: 1px solid rgba(184,146,106,0.2);
-      display: flex;
-      flex-direction: column;
-    }
-    .activite-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 50px var(--shadow-strong);
-    }
-    .activite-header {
-      padding: 2rem 1.5rem 1.5rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      border-bottom: 1px solid var(--bg-section);
-    }
-    .activite-emoji {
-      font-size: 3rem;
-      flex-shrink: 0;
-      width: 64px;
-      height: 64px;
-      background: var(--bg-section);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .activite-header h3 { margin-bottom: 0.3rem; }
-    .activite-body {
-      padding: 1.5rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .activite-body p {
-      font-size: 0.95rem;
-      line-height: 1.65;
-      margin-bottom: 1.25rem;
-      flex: 1;
-    }
-    .activite-details {
-      list-style: none;
-      background: var(--bg-light);
-      border-radius: 10px;
-      padding: 0.75rem 1rem;
-    }
-    .activite-details li {
-      font-size: 0.85rem;
-      color: var(--text-medium);
-      padding: 0.25rem 0;
-      display: flex;
-      gap: 0.5rem;
-    }
-    .activite-details li::before { content: '✓'; color: var(--green-dark); font-weight: 700; }
-
-    .tarifs-table {
-      width: 100%;
-      border-collapse: collapse;
-      max-width: 550px;
-      margin: 0 auto;
-    }
-    .tarifs-table tr {
-      border-bottom: 1px solid var(--bg-section);
-    }
-    .tarifs-table td {
-      padding: 0.85rem 1rem;
-      color: var(--text-medium);
-      font-size: 0.95rem;
-    }
-    .tarifs-table td:last-child {
-      text-align: right;
-      font-weight: 700;
-      color: var(--green-dark);
-    }
-    .tarifs-table tr:last-child { border-bottom: none; }
-  </style>
+  <link rel="stylesheet" href="style/activites.css">
 </head>
 <body>
 
@@ -109,7 +28,7 @@
   </div>
 </section>
 
-<!-- ══ ACTIVITÉS ══ -->
+<!-- ══ ACTIVITÉS MAJEURES ══ -->
 <section class="bg-wood">
   <div class="section-inner">
     <div class="section-title fade-up">
@@ -118,37 +37,15 @@
         <span class="icon">🌟</span>
         <div class="line"></div>
       </div>
-      <h2>Ce que nous proposons</h2>
-      <p>Des activités pour tous les âges et toutes les envies</p>
+      <h2>Nos Activités</h2>
+      <p>Les formats les plus complets, présentés en grand bloc</p>
     </div>
-    <div class="cards-grid" id="activites-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));"></div>
+    <div class="activites-majeures" id="activites-majeures"></div>
   </div>
 </section>
 
-<!-- ══ SCOLAIRES ══ -->
-<section>
-  <div class="section-inner">
-    <div class="section-title fade-up">
-      <div class="section-divider">
-        <div class="line"></div>
-        <span class="icon">🏫</span>
-        <div class="line"></div>
-      </div>
-      <h2 id="scolaires-titre"></h2>
-    </div>
-    <div class="location-card fade-up" style="max-width:850px;margin:0 auto;">
-      <div style="font-size:4rem;text-align:center;flex-shrink:0;">🎒</div>
-      <div class="location-info">
-        <p id="scolaires-texte" style="font-size:1.05rem;line-height:1.8;margin-bottom:1rem;"></p>
-        <ul id="scolaires-points" style="list-style:none;margin-bottom:1rem;"></ul>
-        <p id="scolaires-contact" style="font-weight:600;color:var(--green-dark);"></p>
-        <div style="margin-top:1.25rem;direction: rtl;">
-          <a href="mailto:contact@fermedupetitboisjoli.fr" class="btn btn-primary">✉️ Réserver une sortie</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- ══ AUTRES ACTIVITÉS ══ -->
+<div class="activites-secondaires" id="activites-secondaires"></div>
 
 <!-- ══ TARIFS ══ -->
 <section class="bg-alt">
@@ -172,60 +69,9 @@
 
 <div id="site-footer"></div>
 
+<script src="data/contact.js"></script>
 <script src="data/activites.js"></script>
+<script src="js/activites.js"></script>
 <script src="js/main.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const d = activitesData;
-  document.getElementById('subtitle-page').textContent = d.intro.sousTitre;
-  document.getElementById('intro-texte').textContent   = d.intro.texte;
-
-  const tagColorMap = { green: '', orange: 'orange', pink: 'pink', brown: 'brown' };
-
-  const grid = document.getElementById('activites-grid');
-  d.activites.forEach(a => {
-    const detailsHtml = a.details.map(d => `<li>${d}</li>`).join('');
-    const tagClass = tagColorMap[a.categorieColor] || '';
-    grid.innerHTML += `
-      <div class="activite-card fade-up">
-        <div class="activite-header" style="border-left:5px solid ${a.couleur};">
-          <div class="activite-emoji">${a.icone}</div>
-          <div>
-            <h3>${a.titre}</h3>
-            <span class="card-tag ${tagClass}">${a.categorie}</span>
-          </div>
-        </div>
-        <div class="activite-body">
-          <p>${a.description}</p>
-          <ul class="activite-details">${detailsHtml}</ul>
-        </div>
-      </div>`;
-  });
-
-  // Scolaires
-  const sc = d.groupesScolaires;
-  document.getElementById('scolaires-titre').textContent  = sc.titre;
-  document.getElementById('scolaires-texte').textContent  = sc.texte;
-  document.getElementById('scolaires-contact').textContent = sc.contact;
-  const pointsEl = document.getElementById('scolaires-points');
-  sc.points.forEach(p => {
-    pointsEl.innerHTML += `<li style="padding:0.3rem 0;display:flex;gap:0.5rem;color:var(--text-medium);font-size:0.95rem;"><span style="color:var(--green-dark);font-weight:700;">✓</span>${p}</li>`;
-  });
-
-  // Tarifs
-  document.getElementById('tarifs-titre').textContent = d.tarifs.titre;
-  const tableEl = document.getElementById('tarifs-table');
-  d.tarifs.items.forEach(t => {
-    tableEl.innerHTML += `<tr><td>${t.label}</td><td>${t.prix}</td></tr>`;
-  });
-
-  setTimeout(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
-  }, 100);
-});
-</script>
 </body>
 </html>
