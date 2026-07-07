@@ -36,6 +36,15 @@ const partenariatData = {
       texte: 'Pratiques de shiatsu canin pour favoriser la sante et l equilibre des chiens.',
       lien: 'https://leafonteneaubaudry-shiatsu.fr/',
       cta: 'Visiter le site'
+    },
+    {
+      icone: '🏡',
+      isMajeur: false,
+      nom: 'Association Francaise des Fermes d Animation',
+      logo: 'assets/partenariat/asso_ferme_animation.jpg',
+      texte: 'La ferme est adherente de l Association Francaise des Fermes d Animation.',
+      lien: null,
+      cta: null
     }
   ]
 };
