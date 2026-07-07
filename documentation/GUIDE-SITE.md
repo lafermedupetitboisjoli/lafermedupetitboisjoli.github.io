@@ -179,49 +179,70 @@ Dans `data/animaux.js`, chaque animal est un bloc du même type :
 
 ## 4. Comment fonctionne la Photothèque (page "photos")
 
-### Ce que vous devez savoir pour ajouter une photo
-Les photos de la page **Photothèque** se trouvent dans le dossier :
+### Comment ajouter ou retirer une photo
+Contrairement à ce qu'on pourrait croire, **ajouter le fichier dans le
+dossier ne suffit pas à lui seul** : il faut aussi déclarer son nom dans un
+fichier de données, exactement comme pour les animaux (voir section 3). Il
+y a donc **deux étapes** :
 
-```
-assets/phototeque/
-```
+1. **Déposer le fichier image** (`.jpg`, `.jpeg`, `.png`, `.webp` ou `.gif`)
+   dans le dossier :
+   ```
+   assets/phototeque/
+   ```
+2. **Ajouter son nom de fichier** dans la liste `photos` du fichier
+   `data/phototeque.js` :
+   ```js
+   const phototequeData = {
+     folder: 'assets/phototeque/',
+     photos: [
+       '484494400_122110221116795564_2164289881900878363_n.jpg',
+       '495527814_122140371734795564_8385096046508600925_n.jpg',
+       ...
+       'ma-nouvelle-photo.jpg',   // ← nouvelle ligne ajoutée ici
+     ]
+   };
+   ```
 
-En théorie, il suffit de déposer un fichier image (`.jpg`, `.jpeg`, `.png`,
-`.webp` ou `.gif`) dans ce dossier pour qu'il apparaisse automatiquement sur
-la page, sans toucher à aucun autre fichier. C'est le principe voulu par la
-page : **aucune donnée à modifier, juste glisser une photo dans le dossier.**
+| Propriété | Type | Obligatoire ? | Rôle / règle d'usage |
+|---|---|---|---|
+| `folder` | texte (chemin de dossier, terminé par `/`) | Oui | Dossier où se trouvent les photos. Ne le modifiez pas sauf si vous renommez le dossier `assets/phototeque/` lui-même. |
+| `photos` | liste `[ ]` de noms de fichiers texte | Oui (peut être vide `[]`) | Liste des photos affichées, dans l'ordre d'apparition sur la page. Chaque nom doit être **identique** (majuscules, espaces, accents compris) à celui du fichier déposé dans `assets/phototeque/`. |
 
-### ⚠️ Point de vigilance détecté
-J'ai vérifié le fonctionnement réel de la page en ligne
-(`https://lafermedupetitboisjoli.github.io/phototeque.html`) : la page
-récupère actuellement la liste des photos en demandant au site de "lister"
-le contenu du dossier `assets/phototeque/`. Or **GitHub Pages (l'hébergeur du
-site) ne permet pas de lister le contenu d'un dossier** — j'ai testé
-l'adresse du dossier et elle renvoie une erreur "page introuvable" (404).
+Pour **retirer** une photo : supprimez sa ligne dans `photos: [ ... ]` (vous
+pouvez aussi supprimer le fichier du dossier, mais ce n'est pas obligatoire
+s'il n'est plus référencé dans la liste — une photo présente dans le dossier
+mais absente de la liste n'apparaît simplement pas sur le site).
 
-**Concrètement, cela signifie que sur le site en ligne, la page Photothèque
-risque de ne montrer aucune photo, même si des fichiers sont bien présents
-dans `assets/phototeque/`.**
+⚠️ N'oubliez pas la virgule `,` à la fin de chaque ligne de la liste, sauf
+si vous préférez suivre l'exemple existant qui garde une virgule même sur la
+dernière ligne (les deux fonctionnent).
 
-Ce guide décrit **le fonctionnement voulu** de la page. Aucune modification
-n'a été faite au code du site (documentation uniquement, sur demande) ; si
-vous constatez que la page n'affiche aucune photo en ligne, c'est le signe
-de ce point de vigilance. La correction consisterait à ajouter, sur le même
-principe que pour les animaux (section 3), un petit fichier de données
-listant les noms des photos, pour qu'ajouter une photo se fasse toujours en
-deux gestes simples : déposer le fichier dans le dossier **et** l'ajouter à
-la liste. Faites-moi signe si vous souhaitez que cette correction soit mise
-en place.
+### Pourquoi cette étape supplémentaire est nécessaire
+Le site est hébergé sur **GitHub Pages**, qui ne permet pas de "lister"
+automatiquement le contenu d'un dossier (contrairement à un ordinateur
+personnel). La page a donc besoin qu'on lui indique explicitement, via
+`data/phototeque.js`, quelles photos afficher — exactement comme
+`data/animaux.js` indique quelles photos afficher pour chaque animal.
 
-### En résumé, aujourd'hui
-1. Déposer la photo dans `assets/phototeque/` (formats acceptés : jpg, jpeg,
-   png, webp, gif).
-2. Vérifier ensuite sur le site en ligne si la photo apparaît. Si ce n'est
-   pas le cas, c'est à cause du point de vigilance ci-dessus.
+### En résumé
+1. Déposer la photo dans `assets/phototeque/`.
+2. Ajouter son nom exact dans `photos: [ ... ]` du fichier
+   `data/phototeque.js`.
+3. Vérifier sur le site que la photo apparaît bien dans la galerie.
 
 ---
 
-## 5. Bon réflexe avant toute modification
+## 5. Fiche détaillée par page
+
+Pour aller plus loin, chaque page du site a sa propre fiche listant
+**toutes ses propriétés une par une**, avec leur rôle et leurs règles
+d'usage précises (obligatoire ou non, format attendu, pièges à éviter) :
+voir le dossier [`documentation/pages/`](pages/00-lire-avant.md).
+
+---
+
+## 6. Bon réflexe avant toute modification
 
 1. **Faites une copie du fichier** que vous voulez modifier avant de le
    modifier (par exemple en la renommant `animaux-copie.js`), pour pouvoir
