@@ -1,21 +1,9 @@
 (async () => {
-  const FOLDER = 'assets/phototeque/';
-  const IMG_EXTS = /\.(jpe?g|png|webp|gif)$/i;
+  const folder = phototequeData?.folder || 'assets/phototeque/';
   const grid = document.getElementById('photo-grid');
   const countEl = document.getElementById('gallery-count');
 
-  let photos = [];
-  try {
-    const res = await fetch(FOLDER);
-    const html = await res.text();
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    photos = [...doc.querySelectorAll('a[href]')]
-      .map(a => a.getAttribute('href'))
-      .filter(href => IMG_EXTS.test(href))
-      .map(href => FOLDER + href.split('/').pop());
-  } catch (e) {
-    photos = [];
-  }
+  const photos = (phototequeData?.photos || []).map(name => `${folder}${name}`);
 
   grid.innerHTML = '';
 
