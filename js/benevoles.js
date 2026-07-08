@@ -53,9 +53,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const parrainageLabels = new Map(
     (p.parrains.actionsParrains || []).map((item) => [item.file, item.label])
   );
+  const actionPhotos = (p.parrains.actionsParrains || []).flatMap((action, actionIndex) => {
+    const label = action.label || 'Photo de parrainage';
+    const files = Array.isArray(action.files)
+      ? action.files
+      : Array.isArray(action.images)
+        ? action.images
+        : action.file
+          ? [action.file]
+          : action.image
+            ? [action.image]
+            : [];
+
+    return files.map((file, fileIndex) => ({
+      src: `${parrainageFolder}${file}`,
+      label,
+      key: `${actionIndex}-${fileIndex}-${file}`,
+    }));
+  });
   
   const parrainesEl = document.getElementById('parraines-list');
-  const parrainesActionsEl = document.getElementById('parraines-actions');
   p.parrains.parrains.forEach(parr => {
     const thumbnailsHtml = (parr.images || []).map((imageFile, imageIndex) => {
       const label = parrainageLabels.get(imageFile) || `${parr.nom} avec ${parr.parrains.join(', ')}`;
@@ -76,15 +93,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   });
 
-  const thumbnailsActionsHtml = p.parrains.actionsParrains.map((action) => {
-      const label = action.label;
-      const src = `${parrainageFolder}${action.file}`;
-      return `
-        <button type="button" class="benevole-parrain-thumb" data-src="${src}" data-label="${label}">
+  const thumbnailsActionsHtml = (p.parrains.actionsParrains || [])
+    .map((action) => {
+      const label = action.label || 'Photo de parrainage';
+      const files = Array.isArray(action.files)
+        ? action.files
+        : Array.isArray(action.images)
+          ? action.images
+          : action.file
+            ? [action.file]
+            : action.image
+              ? [action.image]
+              : [];
+
+      return files.map((file) => {
+        const src = `${parrainageFolder}${file}`;
+        const index = actionPhotos.findIndex((photo) => photo.src === src && photo.label === label);
+        return `
+        <button type="button" class="benevole-parrain-action-thumb" data-src="${src}" data-label="${label}" data-index="${index}">
           <img src="${src}" alt="${label}" loading="lazy">
-        </button>`;
+          <div class="benevole-parrain-action-zoom">🔍</div>
+          <div class="benevole-parrain-thumb-label">${label}</div>
+        </button>
+          `;
+      }).join('');
+    })
+    .join('');
+
+  const parrainesActionsEl = document.getElementById('parraines-actions');
+  if (parrainesActionsEl) {
+    parrainesActionsEl.innerHTML = thumbnailsActionsHtml;
+    parrainesActionsEl.querySelectorAll('img').forEach((img) => {
+      img.addEventListener('load', () => img.classList.add('loaded'));
     });
-    parrainesActionsEl.innerHTML += thumbnailsActionsHtml.join('');
+  }
 
   const attenteEl = document.getElementById('animaux-attente');
   p.animaux_attente.forEach(animal => {
@@ -95,35 +137,126 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightboxImg = document.getElementById('benevole-lightbox-img');
   const lightboxLabel = document.getElementById('benevole-lightbox-label');
   const lightboxClose = document.getElementById('benevole-lightbox-close');
+  const lightboxPrev = document.getElementById('benevole-lightbox-prev');
+  const lightboxNext = document.getElementById('benevole-lightbox-next');
+  const lightboxCounter = document.getElementById('benevole-lightbox-counter');
+  const lightboxThumbs = document.getElementById('benevole-lightbox-thumbs');
+  const parrainageThumbSelector = '.benevole-parrain-thumb, .benevole-parrain-action-thumb';
+  const carouselPhotos = actionPhotos.length > 0
+    ? actionPhotos
+    : Array.from(parrainesEl.querySelectorAll('.benevole-parrain-thumb')).map((thumb) => ({
+      src: thumb.dataset.src,
+      label: thumb.dataset.label || 'Photo de parrainage',
+    }));
+  let currentPhotoIndex = 0;
+
+  const renderLightboxThumbs = () => {
+    if (!lightboxThumbs) {
+      return;
+    }
+
+    lightboxThumbs.innerHTML = carouselPhotos.map((photo, index) => `
+      <img
+        src="${photo.src}"
+        alt="${photo.label}"
+        class="benevole-lightbox-thumb${index === currentPhotoIndex ? ' active' : ''}"
+        data-index="${index}"
+      >
+    `).join('');
+
+    lightboxThumbs.querySelectorAll('.benevole-lightbox-thumb').forEach((thumb) => {
+      thumb.addEventListener('click', () => goToPhoto(Number(thumb.dataset.index)));
+    });
+  };
+
+  const goToPhoto = (index) => {
+    if (carouselPhotos.length === 0) {
+      return;
+    }
+
+    currentPhotoIndex = (index + carouselPhotos.length) % carouselPhotos.length;
+    const currentPhoto = carouselPhotos[currentPhotoIndex];
+
+    lightboxImg.classList.add('fading');
+    setTimeout(() => {
+      lightboxImg.src = currentPhoto.src;
+      lightboxImg.alt = currentPhoto.label;
+      lightboxLabel.textContent = currentPhoto.label;
+      lightboxCounter.textContent = `${currentPhotoIndex + 1} / ${carouselPhotos.length}`;
+      lightboxImg.classList.remove('fading');
+      renderLightboxThumbs();
+    }, 120);
+  };
 
   const closeParrainageLightbox = () => {
     lightbox.hidden = true;
     lightboxImg.src = '';
     lightboxImg.alt = '';
     lightboxLabel.textContent = '';
+    lightboxCounter.textContent = '';
+    if (lightboxThumbs) {
+      lightboxThumbs.innerHTML = '';
+    }
     document.body.style.overflow = '';
   };
 
-  const openParrainageLightbox = (src, label) => {
-    lightboxImg.src = src;
-    lightboxImg.alt = label;
-    lightboxLabel.textContent = label;
+  const openParrainageLightbox = (photoIndex) => {
+    if (carouselPhotos.length === 0) {
+      return;
+    }
+
+    goToPhoto(photoIndex);
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';
   };
 
   const handleParrainageThumbClick = (event) => {
-    const thumb = event.target.closest('.benevole-parrain-thumb');
+    const thumb = event.target.closest(parrainageThumbSelector);
     if (!thumb) {
       return;
     }
 
-    openParrainageLightbox(thumb.dataset.src, thumb.dataset.label || 'Photo de parrainage');
+    const index = Number(thumb.dataset.index);
+    if (!Number.isNaN(index) && thumb.classList.contains('benevole-parrain-action-thumb')) {
+      openParrainageLightbox(index);
+      return;
+    }
+
+    const fallbackIndex = carouselPhotos.findIndex((photo) => photo.src === thumb.dataset.src);
+    openParrainageLightbox(fallbackIndex >= 0 ? fallbackIndex : 0);
+  };
+
+  const handleParrainageThumbKeydown = (event) => {
+    const thumb = event.target.closest(parrainageThumbSelector);
+    if (!thumb) {
+      return;
+    }
+
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      const index = Number(thumb.dataset.index);
+      if (!Number.isNaN(index) && thumb.classList.contains('benevole-parrain-action-thumb')) {
+        openParrainageLightbox(index);
+        return;
+      }
+
+      const fallbackIndex = carouselPhotos.findIndex((photo) => photo.src === thumb.dataset.src);
+      openParrainageLightbox(fallbackIndex >= 0 ? fallbackIndex : 0);
+    }
   };
 
   parrainesEl.addEventListener('click', handleParrainageThumbClick);
   if (parrainesActionsEl) {
     parrainesActionsEl.addEventListener('click', handleParrainageThumbClick);
+    parrainesActionsEl.addEventListener('keydown', handleParrainageThumbKeydown);
+  }
+
+  if (lightboxPrev) {
+    lightboxPrev.addEventListener('click', () => goToPhoto(currentPhotoIndex - 1));
+  }
+
+  if (lightboxNext) {
+    lightboxNext.addEventListener('click', () => goToPhoto(currentPhotoIndex + 1));
   }
 
   lightboxClose.addEventListener('click', closeParrainageLightbox);
@@ -151,6 +284,18 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && !lightbox.hidden) {
       closeParrainageLightbox();
+    }
+
+    if (lightbox.hidden) {
+      return;
+    }
+
+    if (event.key === 'ArrowLeft') {
+      goToPhoto(currentPhotoIndex - 1);
+    }
+
+    if (event.key === 'ArrowRight') {
+      goToPhoto(currentPhotoIndex + 1);
     }
   });
 });

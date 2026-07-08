@@ -72,13 +72,14 @@ const benevolesData = {
     {
       imageFolder: "assets/parrainage/",
       parrains: [
-        { icone: "🐴", nom: "Micro", parrains: ["Corinne"], images: ["MicroCorinne.png" ] },
+        { icone: "🐴", nom: "Micro", parrains: ["Corinne"], images: ["MicroCorinne.png"] },
         { icone: "🐴", nom: "Punto", parrains: ["Léane"], images: ["puntoleane.png"] },
         { icone: "🐴", nom: "Funny", parrains: ["Michel"] , images: ["FunnyMichel.png"]},
         { icone: "🫏", nom: "Ponpon", parrains: ["Sylvia"], images:["ponponsylvia.png"]},
       ],
       actionsParrains:[
-        {file: 'puntoleane.png', label: 'Séance photo de Punto avec Léane'},
+        {file: 'puntoleane.png', label: 'Séance photo'},
+        {file: 'nourrissage.jpg', label: 'Nourissage des animaux'},
       ]
     },
 
