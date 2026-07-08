@@ -2,8 +2,19 @@
   const folder = phototequeData?.folder || 'assets/phototeque/';
   const grid = document.getElementById('photo-grid');
   const countEl = document.getElementById('gallery-count');
+  const photos = (phototequeData?.photos || []).map((photo, index) => {
+    if (typeof photo === 'string') {
+      return {
+        src: `${folder}${photo}`,
+        label: `Photo ${index + 1}`
+      };
+    }
 
-  const photos = (phototequeData?.photos || []).map(name => `${folder}${name}`);
+    return {
+      src: `${folder}${photo.file}`,
+      label: photo.label || `Photo ${index + 1}`
+    };
+  });
 
   grid.innerHTML = '';
 
@@ -18,10 +29,10 @@
 
   countEl.textContent = `${photos.length} photo${photos.length > 1 ? 's' : ''}`;
 
-  photos.forEach((src, idx) => {
+  photos.forEach((photo, idx) => {
     const thumb = document.createElement('div');
     thumb.className = 'photo-thumb';
-    thumb.innerHTML = `<img src="${src}" alt="Photo ${idx + 1}" loading="lazy"><div class="zoom-icon">🔍</div>`;
+    thumb.innerHTML = `<img src="${photo.src}" alt="${photo.label}" loading="lazy"><div class="zoom-icon">🔍</div><div class="photo-label">${photo.label}</div>`;
     const img = thumb.querySelector('img');
     img.addEventListener('load', () => img.classList.add('loaded'));
     thumb.addEventListener('click', () => openLb(idx));
@@ -37,11 +48,11 @@
   const lbClose = document.getElementById('lb-close');
   let cur = 0;
 
-  photos.forEach((src, i) => {
+  photos.forEach((photo, i) => {
     const t = document.createElement('img');
-    t.src = src;
+    t.src = photo.src;
     t.className = 'lb-thumb';
-    t.alt = '';
+    t.alt = photo.label;
     t.addEventListener('click', () => goTo(i));
     lbThumbs.appendChild(t);
   });
@@ -50,10 +61,11 @@
     cur = (n + photos.length) % photos.length;
     lbImg.classList.add('fading');
     setTimeout(() => {
-      lbImg.src = photos[cur];
+      lbImg.src = photos[cur].src;
+      lbImg.alt = photos[cur].label;
       lbImg.classList.remove('fading');
     }, 130);
-    lbCount.textContent = `${cur + 1} / ${photos.length}`;
+    lbCount.textContent = `${cur + 1} / ${photos.length} - ${photos[cur].label}`;
     lbThumbs.querySelectorAll('.lb-thumb').forEach((t, i) => {
       t.classList.toggle('active', i === cur);
     });

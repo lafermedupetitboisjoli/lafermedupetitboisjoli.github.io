@@ -120,29 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>`;
   });
 
-  const p = d.parrainage;
-  document.getElementById('parrainage-titre').textContent = p.titre;
-  document.getElementById('parrainage-intro').textContent = p.intro;
-  document.getElementById('parrainage-merci').textContent = p.merci;
-  document.getElementById('parrainage-attente').textContent = p.attente;
-  document.getElementById('parrainage-conclusion').textContent = p.conclusion;
-  document.getElementById('parrainage-cta').textContent = p.cta;
-
-  const parrainesEl = document.getElementById('parraines-list');
-  p.parraines.forEach(parr => {
-    parrainesEl.innerHTML += `
-      <div style="background:white;border-radius:12px;padding:1rem;text-align:center;box-shadow:0 2px 10px var(--shadow);">
-        <div style="font-size:2.5rem;margin-bottom:0.5rem;">${parr.icone}</div>
-        <div style="font-family:'Caveat',cursive;font-size:1.2rem;font-weight:700;color:var(--brown-dark);">${parr.nom}</div>
-        <div style="font-size:0.85rem;color:var(--text-light);margin-top:0.25rem;">parrainé par<br><strong>${parr.parrains.join('<br>')}</strong></div>
-      </div>`;
-  });
-
-  const attenteEl = document.getElementById('animaux-attente');
-  p.animaux_attente.forEach(animal => {
-    attenteEl.innerHTML += `<div style="background:white;padding:0.6rem;border-radius:8px;font-size:0.9rem;font-weight:600;color:var(--text-medium);">${animal}</div>`;
-  });
-
   document.getElementById('merci-titre').textContent = d.merci.titre;
   document.getElementById('merci-texte').textContent = d.merci.texte;
 

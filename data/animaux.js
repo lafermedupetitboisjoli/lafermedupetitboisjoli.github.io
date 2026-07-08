@@ -104,7 +104,7 @@ const animauxData = {
       "Vous souhaitez soutenir nos animaux et participer à leur bien-être ? Le parrainage est une belle manière de contribuer à la vie de la ferme. En parrainant un animal, vous recevrez des nouvelles régulières et pourrez suivre son évolution.",
     boutton: { 
       label: "Parrainer un animal", 
-      lien: "dons.html#parrainage" },
+      lien: "benevoles.html#parrainage" },
     },
     {
     titre: "Médiation animale",

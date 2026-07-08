@@ -63,6 +63,50 @@ const benevolesData = {
     }
   ],
 
+  parrainage: {
+    titre: "Merci à nos parrains et marraines !",
+    intro:
+      "À La Ferme du Petit Bois Joli, le parrainage est une aide précieuse pour prendre soin de nos animaux au quotidien. Grâce à nos parrains et marraines, nous pouvons continuer à leur offrir nourriture, soins et attention. 💚",
+
+    parrains: 
+    {
+      imageFolder: "assets/parrainage/",
+      parrains: [
+        { icone: "🐴", nom: "Micro", parrains: ["Corinne"], images: ["MicroCorinne.png" ] },
+        { icone: "🐴", nom: "Punto", parrains: ["Léane"], images: ["puntoleane.png"] },
+        { icone: "🐴", nom: "Funny", parrains: ["Michel"] , images: ["FunnyMichel.png"]},
+        { icone: "🫏", nom: "Ponpon", parrains: ["Sylvia"], images:["ponponsylvia.png"]},
+      ],
+      actionsParrains:[
+        {file: 'puntoleane.png', label: 'Séance photo de Punto avec Léane'},
+      ]
+    },
+
+    merci:
+      "Un immense merci à eux pour leur engagement et leur générosité ! 🙏",
+
+    attente: "Mais l'aventure du parrainage continue… Il reste encore plusieurs animaux qui attendent leur parrain ou leur marraine :",
+
+    animaux_attente: [
+      "🐰 lapins",
+      "🐹 cochons d'Inde",
+      "🐐 chèvres",
+      "🐑 moutons",
+      "🐷 cochons",
+      "🐴 chevaux",
+      "🫏 ânes",
+      "🐴 poneys",
+      "🐶 chiens",
+      "🐱 chats",
+      "🐔 poules",
+    ],
+
+    conclusion:
+      "Parrainer un animal, c'est participer concrètement à son bien-être et soutenir la vie de la ferme. C'est aussi créer un lien particulier avec lui. 💫",
+
+    cta: "📩 Nous serons ravis de vous expliquer comment rejoindre cette belle aventure solidaire !",
+   },
+
   rejoindre: {
     titre: "Rejoindre l'équipe",
     texte:

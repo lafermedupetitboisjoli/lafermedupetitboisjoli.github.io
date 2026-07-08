@@ -134,3 +134,217 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.benevole-parrainage-intro {
+  max-width: 720px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.benevole-parrainage-intro p {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.benevole-parrainage-supported {
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+}
+
+.benevole-parrainage-supported h3 {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--green-dark);
+  margin-bottom: 1rem;
+}
+
+.benevole-parrains-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.benevole-parrain-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 10px var(--shadow);
+}
+
+.benevole-parrain-card > .benevole-parrain-icon,
+.benevole-parrain-card > .benevole-parrain-name {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.benevole-parrain-icon {
+  font-size: 2rem;
+  margin-bottom: 0.35rem;
+  margin-right: 0.5rem;
+  align-items: center;
+}
+
+.benevole-parrain-name {
+  font-family: 'Caveat', cursive;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+  align-items: center;
+}
+
+.benevole-parrain-by {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 0.25rem;
+}
+
+.benevole-parrain-thumbs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.9rem;
+}
+
+.benevole-parrain-thumb {
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: 2px solid rgba(184,146,106,0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  cursor: zoom-in;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.benevole-parrain-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.benevole-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 12, 6, 0.86);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 2000;
+}
+
+.benevole-lightbox[hidden] {
+  display: none;
+}
+
+.benevole-lightbox-content {
+  position: relative;
+  max-width: min(920px, 95vw);
+  max-height: 92vh;
+  text-align: center;
+}
+
+.benevole-lightbox-content img {
+  max-width: 100%;
+  max-height: 82vh;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  background: white;
+}
+
+.benevole-lightbox-close {
+  position: absolute;
+  top: -0.65rem;
+  right: -0.65rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: none;
+  border-radius: 999px;
+  background: white;
+  color: var(--brown-dark);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+}
+
+.benevole-lightbox-label {
+  color: white;
+  margin-top: 0.85rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .benevole-parrains-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .benevole-parrains-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.benevole-parrainage-merci {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--text-medium);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.benevole-parrainage-waiting {
+  max-width: 720px;
+  margin: 0 auto 2rem;
+  background: var(--bg-section);
+  border-radius: 16px;
+  padding: 1.75rem;
+  text-align: center;
+}
+
+.benevole-parrainage-waiting p {
+  font-weight: 600;
+  color: var(--brown-dark);
+  margin-bottom: 1rem;
+}
+
+.benevole-parrainage-waiting-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+}
+
+.benevole-attente-item {
+  background: white;
+  padding: 0.6rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-medium);
+}
+
+.benevole-parrainage-cta-box {
+  max-width: 700px;
+  margin: 0 auto;
+  flex-direction: column;
+  text-align: center;
+}
+
+.benevole-parrainage-cta-box #parrainage-conclusion {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.benevole-parrainage-cta {
+  font-size: 1rem;
+  color: var(--green-dark);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
