@@ -147,10 +147,10 @@ const donsData = {
       "À La Ferme du Petit Bois Joli, le parrainage est une aide précieuse pour prendre soin de nos animaux au quotidien. Grâce à nos parrains et marraines, nous pouvons continuer à leur offrir nourriture, soins et attention. 💚",
 
     parraines: [
-      { icone: "🐴", nom: "Micro", parrain: "Corinne" },
-      { icone: "🐴", nom: "Punto", parrain: "Léane" },
-      { icone: "🐴", nom: "Funny", parrain: "Michel" },
-      { icone: "🫏", nom: "Ponpon", parrain: "Sylvia" },
+      { icone: "🐴", nom: "Micro", parrains: ["Corinne"] },
+      { icone: "🐴", nom: "Punto", parrains: ["Léane"] },
+      { icone: "🐴", nom: "Funny", parrains: ["Michel"] },
+      { icone: "🫏", nom: "Ponpon", parrains: ["Sylvia", "Azilys"] },
     ],
 
     merci:

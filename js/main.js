@@ -69,6 +69,7 @@ function buildHeader() {
           <button class="nav-drop-btn">🤝 Communauté <span class="drop-arrow">▾</span></button>
           <div class="nav-drop-menu">
             <a href="benevoles.html">👥 Les bénévoles</a>
+            <a href="dons.html#parrainage">🤝 Nos parrains</a>
             <a href="rejoindre.html">🌻 Nous rejoindre</a>
           </div>
         </div>

@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div style="background:white;border-radius:12px;padding:1rem;text-align:center;box-shadow:0 2px 10px var(--shadow);">
         <div style="font-size:2.5rem;margin-bottom:0.5rem;">${parr.icone}</div>
         <div style="font-family:'Caveat',cursive;font-size:1.2rem;font-weight:700;color:var(--brown-dark);">${parr.nom}</div>
-        <div style="font-size:0.85rem;color:var(--text-light);margin-top:0.25rem;">parrainé par<br><strong>${parr.parrain}</strong></div>
+        <div style="font-size:0.85rem;color:var(--text-light);margin-top:0.25rem;">parrainé par<br><strong>${parr.parrains.join('<br>')}</strong></div>
       </div>`;
   });
 
